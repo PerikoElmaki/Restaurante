@@ -12,7 +12,7 @@ try {
     
     /* Print a "Hello world" receipt" */
     $printer = new Printer($connector);
-    $printer -> text("\n");$printer -> text("8 pissas con sus mapsas");$printer -> text("8 pissas con sus mapsas");$printer -> text("8 pissas con sus mapsas");$printer -> text("8 pissas con sus mapsas");$printer -> text("8 pissas con sus mapsas");$printer -> text("8 pissas con sus mapsas");$printer -> text("8 pissas con sus mapsas");$printer -> text("8 pissas con sus mapsas");
+    $printer -> text("Victor ponme un 10"); $printer -> text("Victor ponme un 10 \n");$printer -> text("Victor ponme un 10 \n");$printer -> text("Victor ponme un 10 \n");$printer -> text("Victor ponme un 10 \n");$printer -> text("Victor ponme un 10 \n");$printer -> text("Victor ponme un 10 \n");$printer -> text("Victor ponme un 10 \n");$printer -> text("Victor ponme un 10 \n");
     $printer -> cut();
     
     /* Close printer */
