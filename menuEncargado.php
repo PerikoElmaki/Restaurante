@@ -7,11 +7,12 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <?php include("src/validarInicio.php"); $nombre =$_SESSION['nombre'] ?>
     <nav>
-        <h1>Menu</h1>
+        <h1>Menu Encargado</h1>
         <!-- Saludar camarero -->
         <?php 
+            session_start();
+            $nombre = $_SESSION['nombre']; 
             echo "<h3>Bienvenido, $nombre</h3>";
         ?>
     </nav>

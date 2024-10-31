@@ -12,7 +12,7 @@
     </nav>
     <section>
         <div class="containerFomr">
-            <form action="src/validarInicio.php" method="post">
+            <form action="validarInicio.php" method="post">
                 <div class="usu">
                     <input type="text" name="nombre" id="nombre" placeholder="Usuario" required>
                 </div>
