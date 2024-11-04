@@ -1,6 +1,7 @@
 <?php
 include "../sesion.php";
 include "../conexion.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,26 +15,17 @@ include "../conexion.php";
 
 <body>
     <nav>
-        <h1>Menu Encargado</h1>
+        <h1>Encargado</h1>
         <!-- Saludar camarero -->
         <?php
         $nombre = $_SESSION['nombre'];
-        echo "<h3>Bienvenido, $nombre</h3>";
+        echo "<h3>$nombre</h3>";
         ?>
     </nav>
     <section>
-        <div>
-            <a href="listadoCamareros.php">
-                <h3>Listado de los camareros</h3>
-            </a>
+        <div class="listadoUsuarios">
+            
         </div>
-
-        <div>
-            <a href="formAñadirCamarero.php">
-                <h3>Añadir camareros</h3>
-            </a>
-        </div>
-
     </section>
 </body>
 
