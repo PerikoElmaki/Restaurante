@@ -8,6 +8,10 @@
     $fotoEnlace = $_POST['dni'];
     $encargado = $_POST['encargado'];
 
-    $consulta = "INSERT INTO restaurante (codigo,producto,detalle,precio,descuento,imagen) VALUES ('$cod','$pro','$det','$pre','$des','$ima')";
+    $consulta = "INSERT INTO camareros VALUES ('NULL','$usuario','$contra','$dni','$dni','$encargado')";
+
+    $resultado = mysqli_query($conn, $consulta);
+
+    header("LOCATION:menuEncargado.php");
 
 ?>
