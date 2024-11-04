@@ -18,9 +18,9 @@ if (mysqli_num_rows($resultado) == 1) {
     $_SESSION['encargado'] = $fila['encargado'];
 
     if($fila['encargado'] == 1){
-        header("LOCATION:menuEncargado.php");
+        header("LOCATION:encargado/menuEncargado.php");
     }elseif ($fila['encargado'] == 0){
-        header("LOCATION:menuCamarero.php");
+        header("LOCATION:camarero/menuCamarero.php");
     }
     
 }else{
