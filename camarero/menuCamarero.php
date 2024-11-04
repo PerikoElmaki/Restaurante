@@ -1,6 +1,6 @@
 <?php 
-    include "../sesion.php";
     include "../conexion.php";
+    include "../sesion.php";
 
 ?>
 <!DOCTYPE html>
@@ -18,8 +18,8 @@
         <h1>Menu Camareros</h1>
         <!-- Saludar camarero -->
         <?php
-        $nombre = $_SESSION['nombre'];
-        echo "<h3>Bienvenido, $nombre</h3>";
+            $nombre = $_SESSION['nombre'];
+            echo "<h3>Bienvenido, $nombre</h3>";
         ?>
     </nav>
     <section>

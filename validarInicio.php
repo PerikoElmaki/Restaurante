@@ -8,9 +8,10 @@ $consulta = "SELECT * FROM camareros WHERE nombre='$usuario' AND contraseña='$c
 $resultado = mysqli_query($conn, $consulta);
 
 if (mysqli_num_rows($resultado) == 1) {
-    $fila = mysqli_fetch_array($resultado);
+    $fila = mysqli_fetch_assoc($resultado);
    
     session_start();
+
 
     $_SESSION['id'] = $fila['id'];
     $_SESSION['nombre'] = $fila['nombre'];
@@ -26,6 +27,7 @@ if (mysqli_num_rows($resultado) == 1) {
 }else{
     header("LOCATION:index.php");
 } 
+
 
 
 
