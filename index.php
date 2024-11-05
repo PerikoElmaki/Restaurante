@@ -15,19 +15,18 @@
         <h1>Empleados Vega Media</h1>
     </nav>
     <section>
-        <div class="containerFomr">
-            <form action="validarInicio.php" method="post">
-                <div class="usu">
-                    <input type="text" name="nombre" id="nombre" placeholder="Usuario" required>
-                </div>
-                <div class="clav">
-                    <input type="password" name="contraseña" id="contraseña" placeholder="contraseña" required>
-                </div>
-                <div class="btn">
-                    <input type="submit" value="Entrar">
-                    <div>
-            </form>
-        </div>
+        <form action="validarInicio.php" method="post">
+            <div class="col-12">
+                <input type="text" name="nombre" id="nombre" placeholder="Usuario" required>
+            </div>
+            <div class="clav">
+                <input type="password" name="contraseña" id="contraseña" placeholder="contraseña" required>
+            </div>
+            <div>
+                <input class="enviar" type="submit" value="Entrar">
+                <div>
+        </form>
+
     </section>
 </body>
 

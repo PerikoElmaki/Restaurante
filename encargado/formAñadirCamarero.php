@@ -17,25 +17,35 @@ include "../conexion.php";
 
 <body>
     <nav>
-        <h1>Menu Encargado</h1>
-        <?php
-        $nombre = $_SESSION['nombre'];
-        echo "<h3>$nombre</h3>";
-        ?>
+        <div class="volver">
+            <h4><a href="menuEncargado.php">
+                    <=Volver al menu
+                        </a>
+            </h4>
+        </div>
+        <div class="centrar">
+            <h2>Encargado</h2>
+            <!-- Saludar camarero -->
+            <?php
+            $nombre = $_SESSION['nombre'];
+            echo "<h3>$nombre</h3>";
+            ?>
+        </div>
     </nav>
-    <div class="container">
-        <h3>Añadir camarero</h3>
-        <form action="añadirCamarero.php" method="post" class="row">
-            <input type="text" name="nombre" id="nombre" placeholder="Nombre del camarero" required>
-            <input type="password" name="contraseña" id="contraseña"  placeholder="Contraseña" required>
-            <div class="w-100"></div>
-            <input type="text" name="dni" id="dni" placeholder="DNI" required>
-            <input type="file" name="foto" id="foto"  placeholder="foto" required>
-            <input type="checkbox" name="encargado" id="encargado" value="0">
-            <label for="encargado">¿Es encargado?</label>
-            <input type="submit">
-        </form>
-    </div>
+    <section>
+        <div>
+            <h3>Añadir camarero</h3>
+            <form action="añadirCamarero.php" method="post">
+                <input type="text" name="nombre" id="nombre" placeholder="Nombre del camarero" required>
+                <input type="password" name="contraseña" id="contraseña" placeholder="Contraseña" required>
+                <input type="text" name="dni" id="dni" placeholder="DNI" required>
+                <input type="file" name="foto" id="foto" placeholder="foto" required>
+                <input type="checkbox" name="encargado" id="encargado" value="0">
+                <label for="encargado">¿Es encargado?</label>
+                <input type="submit">
+            </form>
+        </div>
+    </section>
 </body>
 
 </html>

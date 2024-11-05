@@ -1,0 +1,67 @@
+body{
+    margin: 0 auto;
+}
+nav{
+    background-color: rgb(26, 0, 23);
+    color: white;
+    padding: 15px;
+}
+
+nav .volver{
+    justify-content: left;
+}
+
+nav .centrar{
+    text-align: center;
+}
+section{
+    margin-top: 10%;
+    text-align: center;
+   
+}
+
+form{
+    font-size: 1.2em;
+    margin: 0 auto;
+    background-color: rgb(39, 1, 35);
+    width: 80%;
+    padding: 8%;
+}
+form input {
+    margin-bottom: 10px;
+    width: 80%;
+    border: 3px solid white;
+    border-radius: 3px;
+
+}
+form .enviar{
+    width: 40%;
+    padding: 8px;
+}
+/* Listado */
+table{
+    width: 70%;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+tbody{
+    background-color: rgb(228, 228, 228);
+    padding: 20px;
+    height: 100px;
+}
+
+tbody th{
+    text-align: center;
+    padding: 10px;
+}
+
+table img{
+    width: 20%;
+    height: 20%;
+}
+
+/* Añadir camarero form */
+form #foto{
+    margin: 0 auto;
+}
