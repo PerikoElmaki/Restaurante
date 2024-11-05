@@ -23,7 +23,7 @@ include "../conexion.php";
     </nav>
     <section>
         <div>
-            <a href="listadoCamareros.php">
+            <a href="formListadoCamareros.php">
                 <h3>Listado de los camareros</h3>
             </a>
         </div>
