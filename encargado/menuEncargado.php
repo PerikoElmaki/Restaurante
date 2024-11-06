@@ -26,15 +26,25 @@ include "../conexion.php";
         </div>
     </nav>
     <section>
-        <div>
-            <a href="formListadoCamareros.php">
+        <div class="enlacesContainer">
+            <a href="listadoCamareros.php">
                 <h3>Listado de los camareros</h3>
             </a>
-        </div>
-
-        <div>
             <a href="formAñadirCamarero.php">
                 <h3>Añadir camareros</h3>
+            </a>
+            <a href="../camarero/menuCamarero.php">
+                <h3>Vista de Camarero</h3>
+            </a>
+        </div>
+        <!-- Productos -->
+        <h4>Gestión de productos</h4>
+        <div class="enlacesContainer">
+            <a href="ListadoProductos.php">
+                <h3>Listado de productos</h3>
+            </a>
+            <a href="formAñadirProductos.php">
+                <h3>Añadir productos</h3>
             </a>
         </div>
 

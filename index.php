@@ -12,7 +12,9 @@
 
 <body>
     <nav>
-        <h1>Empleados Vega Media</h1>
+        <div class="centrar">
+            <h1>Empleados Vega Media</h1>
+        </div>
     </nav>
     <section>
         <form action="validarInicio.php" method="post">

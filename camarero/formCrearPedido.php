@@ -17,23 +17,28 @@ include "../sesion.php";
 
 <body>
     <nav>
+        <div class="volver">
+            <h4><a href="salon.php">
+                    <=Volver al salón
+                        </a>
+            </h4>
+        </div>
         <div class="centrar">
-            <h1>Menu Camareros</h1>
-            <!-- Saludar camarero -->
             <?php
+            $id = $_GET['id'];
+            echo "<h1>Mesa $id</h1>";
             $nombre = $_SESSION['nombre'];
-            echo "<h3>Bienvenido, $nombre</h3>";
+            echo "<h3>Camarero: $nombre</h3>";
             ?>
         </div>
     </nav>
     <section>
-        <div>
-            <a href="salon.php">
-                <h3>Salón y comandas</h3>
-            </a>
+        <div class="pedidoContainer">
+            <form action="crearPedido.php" method="post">
+                
+            </form>
         </div>
-        <!-- Añadir mesa falta -->
-    
+
 
     </section>
 </body>

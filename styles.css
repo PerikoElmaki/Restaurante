@@ -38,6 +38,50 @@ form .enviar{
     width: 40%;
     padding: 8px;
 }
+
+.enlacesContainer{
+    text-align: center;
+    width: 50%;
+    margin-bottom: 10px;
+    padding: 20px;
+    border: 1px solid blueviolet;
+    border-radius: 2px;
+}
+
+.mesasContainer {
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.mesaLibre,.mesaOcupada {
+    width: 70px;
+    height: 70px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    text-align: center;
+    align-items: center;
+}
+
+.mesaOcupada {
+    background-color: rgb(228, 12, 12);
+}
+
+.mesaLibre {
+    background-color: rgb(39, 1, 35);
+}
+
+.enlaceMesaId {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: 2em;
+
+}
 /* Listado */
 table{
     width: 70%;
@@ -65,3 +109,9 @@ table img{
 form #foto{
     margin: 0 auto;
 }
+
+/* Pedidos */
+.articulosContainer{
+    background-color: rgb(194, 193, 193);
+}
+
