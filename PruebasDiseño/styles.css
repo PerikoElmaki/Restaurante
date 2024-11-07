@@ -1,32 +1,35 @@
-body{
+body {
     margin: 0 auto;
 }
-nav{
+
+nav {
     background-color: rgb(26, 0, 23);
     color: white;
     padding: 15px;
 }
 
-nav .volver{
+nav .volver {
     justify-content: left;
 }
 
-nav .centrar{
+nav .centrar {
     text-align: center;
-}
-section{
-    margin-top: 10%;
-    text-align: center;
-   
 }
 
-form{
+section {
+    margin-top: 10%;
+    text-align: center;
+
+}
+
+form {
     font-size: 1.2em;
     margin: 0 auto;
     background-color: rgb(39, 1, 35);
     width: 80%;
     padding: 8%;
 }
+
 form input {
     margin-bottom: 10px;
     width: 80%;
@@ -34,12 +37,13 @@ form input {
     border-radius: 3px;
 
 }
-form .enviar{
+
+form .enviar {
     width: 40%;
     padding: 8px;
 }
 
-.enlacesContainer{
+.enlacesContainer {
     text-align: center;
     width: 50%;
     margin-bottom: 10px;
@@ -58,7 +62,7 @@ form .enviar{
     justify-content: center;
 }
 
-.mesaLibre,.mesaOcupada {
+.mesaLibre, .mesaOcupada {
     width: 70px;
     height: 70px;
     margin-right: 20px;
@@ -67,68 +71,73 @@ form .enviar{
     text-align: center;
     align-items: center;
 }
-
 .mesaOcupada {
     background-color: rgb(228, 12, 12);
 }
-
-.mesaLibre {
+.mesaLibre{
     background-color: rgb(39, 1, 35);
 }
-
-.enlaceMesaId {
+div a{
     text-decoration: none;
-    color: rgb(255, 255, 255);
+    color: white;
     font-size: 2em;
-
+    
 }
+
 /* Listado */
-table{
+table {
     width: 70%;
     padding: 20px;
     margin: 0 auto;
 }
 
-tbody{
+tbody {
     background-color: rgb(228, 228, 228);
     padding: 20px;
     height: 100px;
 }
 
-tbody th{
+tbody th {
     text-align: center;
     padding: 10px;
 }
 
-table img{
+table img {
     width: 20%;
     height: 20%;
 }
 
 /* Añadir camarero form */
-form #foto{
+form #foto {
     margin: 0 auto;
 }
 
-/* CrearPedido */
+.pedidoContainer {
+    background-color: rgb(219, 219, 219);
+}
 
-.categoriasDiv {
+.listadoArticulosPedido {
+    width: 80%;
+    background-color: rgb(145, 20, 161);
+    
+}
+
+/* Form pedido */
+.categoriasDiv{
     border: 1px solid black;
     width: 80%;
     justify-self: center;
     margin-top: 20px;
 }
 
-.cant {
+.cant{
     width: 30%;
     justify-self: center;
 }
-
-.containerCateg {
+.containerCateg{
     height: 50px;
 }
-
-.categoria {
+.categoria{
     margin-bottom: 10px;
     width: 30%;
     height: 80%;
@@ -136,6 +145,10 @@ form #foto{
     justify-self: center;
 }
 
-.botonPedido {
+.botonPedido{
     margin-bottom: 20px;
+}
+
+.productos{
+    width: 30%;
 }

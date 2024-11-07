@@ -33,13 +33,91 @@ include "../sesion.php";
         </div>
     </nav>
     <section>
-        <div class="pedidoContainer">
-            <form action="crearPedido.php" method="post">
-                
-            </form>
+        <div class="container mt-5">
+            <h2>Realiza tu Pedido</h2>
+            <!-- Sección de Pizzas -->
+            <div class="categoriasDiv row mb-3">
+                <h4>Pizzas</h4>
+                <div class="containerCateg col-md-3">
+                    <select id="pizzaType" class="categoria form-select">
+                        <option selected>Elige...</option>
+                        <option value="margherita">Margherita</option>
+                        <option value="pepperoni">Pepperoni</option>
+                        <option value="vegetarian">Vegetariana</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="pizzaQuantity" class="form-label">Cantidad</label>
+                    <input
+                        type="number"
+                        id="pizzaQuantity"
+                        class="cant form-control"
+                        min="1" />
+                </div>
+                <div class="col-md-4">
+                    <label for="pizzaComment" class="form-label">Añadir Comentario</label>
+                    <input type="text" id="pizzaComment" class="categoria form-control" />
+                </div>
+                <div class="col-md-3 align-self-end">
+                    <button class="botonPedido btn btn-primary">Añadir al Pedido</button>
+                </div>
+            </div>
+            <!-- Sección de Entrantes -->
+            <div class="categoriasDiv row mb-3">
+                <h4>Pizzas</h4>
+                <div class="containerCateg col-md-3">
+                    <select id="pizzaType" class="categoria form-select">
+                        <option selected>Elige...</option>
+                        <option value="margherita">Margherita</option>
+                        <option value="pepperoni">Pepperoni</option>
+                        <option value="vegetarian">Vegetariana</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="pizzaQuantity" class="form-label">Cantidad</label>
+                    <input
+                        type="number"
+                        id="pizzaQuantity"
+                        class="cant form-control"
+                        min="1" />
+                </div>
+                <div class="col-md-4">
+                    <label for="pizzaComment" class="form-label">Añadir Comentario</label>
+                    <input type="text" id="pizzaComment" class="categoria form-control" />
+                </div>
+                <div class="col-md-3 align-self-end">
+                    <button class="botonPedido btn btn-primary">Añadir al Pedido</button>
+                </div>
+            </div>
+            <!-- Sección de Bocatas -->
+            <div class="categoriasDiv row mb-3">
+                <h4>Pizzas</h4>
+                <div class="containerCateg col-md-3">
+                    <select id="pizzaType" class="categoria form-select">
+                        <option selected>Elige...</option>
+                        <option value="margherita">Margherita</option>
+                        <option value="pepperoni">Pepperoni</option>
+                        <option value="vegetarian">Vegetariana</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="pizzaQuantity" class="form-label">Cantidad</label>
+                    <input
+                        type="number"
+                        id="pizzaQuantity"
+                        class="cant form-control"
+                        min="1" />
+                </div>
+                <div class="col-md-4">
+                    <label for="pizzaComment" class="form-label">Añadir Comentario</label>
+                    <input type="text" id="pizzaComment" class="categoria form-control" />
+                </div>
+                <div class="col-md-3 align-self-end">
+                    <button class="botonPedido btn btn-primary">Añadir al Pedido</button>
+                </div>
+            </div>
+
         </div>
-
-
     </section>
 </body>
 
