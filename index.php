@@ -17,7 +17,7 @@
         </div>
     </nav>
     <section>
-        <form action="validarInicio.php" method="post">
+        <form action="validarInicio.php" method="post" class="inicio">
             <div class="col-12">
                 <input type="text" name="nombre" id="nombre" placeholder="Usuario" required>
             </div>

@@ -33,89 +33,38 @@ include "../sesion.php";
         </div>
     </nav>
     <section>
-        <div class="container mt-5">
+        <div class="container">
             <h2>Realiza tu Pedido</h2>
-            <!-- Sección de Pizzas -->
-            <div class="categoriasDiv row mb-3">
-                <h4>Pizzas</h4>
-                <div class="containerCateg col-md-3">
-                    <select id="pizzaType" class="categoria form-select">
-                        <option selected>Elige...</option>
-                        <option value="margherita">Margherita</option>
-                        <option value="pepperoni">Pepperoni</option>
-                        <option value="vegetarian">Vegetariana</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label for="pizzaQuantity" class="form-label">Cantidad</label>
-                    <input
-                        type="number"
-                        id="pizzaQuantity"
-                        class="cant form-control"
-                        min="1" />
-                </div>
-                <div class="col-md-4">
-                    <label for="pizzaComment" class="form-label">Añadir Comentario</label>
-                    <input type="text" id="pizzaComment" class="categoria form-control" />
-                </div>
-                <div class="col-md-3 align-self-end">
-                    <button class="botonPedido btn btn-primary">Añadir al Pedido</button>
-                </div>
-            </div>
-            <!-- Sección de Entrantes -->
-            <div class="categoriasDiv row mb-3">
-                <h4>Pizzas</h4>
-                <div class="containerCateg col-md-3">
-                    <select id="pizzaType" class="categoria form-select">
-                        <option selected>Elige...</option>
-                        <option value="margherita">Margherita</option>
-                        <option value="pepperoni">Pepperoni</option>
-                        <option value="vegetarian">Vegetariana</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label for="pizzaQuantity" class="form-label">Cantidad</label>
-                    <input
-                        type="number"
-                        id="pizzaQuantity"
-                        class="cant form-control"
-                        min="1" />
-                </div>
-                <div class="col-md-4">
-                    <label for="pizzaComment" class="form-label">Añadir Comentario</label>
-                    <input type="text" id="pizzaComment" class="categoria form-control" />
-                </div>
-                <div class="col-md-3 align-self-end">
-                    <button class="botonPedido btn btn-primary">Añadir al Pedido</button>
-                </div>
-            </div>
-            <!-- Sección de Bocatas -->
-            <div class="categoriasDiv row mb-3">
-                <h4>Pizzas</h4>
-                <div class="containerCateg col-md-3">
-                    <select id="pizzaType" class="categoria form-select">
-                        <option selected>Elige...</option>
-                        <option value="margherita">Margherita</option>
-                        <option value="pepperoni">Pepperoni</option>
-                        <option value="vegetarian">Vegetariana</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label for="pizzaQuantity" class="form-label">Cantidad</label>
-                    <input
-                        type="number"
-                        id="pizzaQuantity"
-                        class="cant form-control"
-                        min="1" />
-                </div>
-                <div class="col-md-4">
-                    <label for="pizzaComment" class="form-label">Añadir Comentario</label>
-                    <input type="text" id="pizzaComment" class="categoria form-control" />
-                </div>
-                <div class="col-md-3 align-self-end">
-                    <button class="botonPedido btn btn-primary">Añadir al Pedido</button>
-                </div>
-            </div>
+            <form action="crearPedido.php" method="post" class="listadoProd" >
+                <?php
+                $consulta = "SELECT * FROM productos";
+
+                $resultado = mysqli_query($conn, $consulta);
+
+                while ($fila = mysqli_fetch_array($resultado)) {
+
+                    $id = $fila['id'];
+                    $nombre = $fila['nombre'];
+                    $categ = $fila['categoria'];
+                    $precio = $fila['precio'];
+                    $stock= $fila['stock'];
+                
+                    echo "<div class='col-12 productosCaja'>";
+                    echo "<h5 class='productosItem'>$id</h5>";
+                    echo "<h4 class='productosItem'>$nombre</h4>";
+                    echo "<h5 class='productosItem'>$categ</h5>";
+                    echo "<h5 class='productosItem'>$precio $</h5>";
+                    echo "<h5 class='productosItem'>$stock u</h5>";
+                    // Crear id para chekbox, será el id del producto mas check
+                    $idcheck = $id. "check";
+                    echo "<input type='checkbox' id='$idcheck' class='productosItem'>";
+                    echo"$idcheck";
+                    echo "</div>";
+                }
+                ?>
+
+                <input type="submit" class="btn btn-primary"> 
+            </form> 
 
         </div>
     </section>

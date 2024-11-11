@@ -1,3 +1,8 @@
+<?php
+include "../conexion.php";
+include "../sesion.php";
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,17 +55,37 @@
     <form id="carritoForm" method="POST" action="/submitCarrito" style="display: none;">
     </form>
 
-    <script>
-         // Insertar el valor de las variables tras consulta en bbdd
-        //  
-        // ej: id = $id 
-        const baseDeDatos = [
-            { id: 1, nombre: 'Agua',     categoria: 'bebida', precio:1, stock: 10       },
-            { id: 2, nombre: 'COca',     categoria: 'bebida', precio:1, stock: 10        },
-            { id: 3, nombre: 'Fanta',    categoria: 'bebida', precio:1, stock: 10       },
-            { id: 4, nombre: 'Cerveza',  categoria: 'bebida', precio:1, stock: 10        }
-        ];
+    <?php
 
+    // Consulta SQL para obtener los productos
+    $consulta = "SELECT * FROM productos";
+    $resultado = mysqli_query($conn, $consulta);
+
+    // Verificamos si hubo algún error en la consulta
+    if (!$resultado) {
+        echo json_encode(["error" => "Error en la consulta: " . mysqli_error($conn)]);
+        exit();
+    }
+
+    // Creamos el array de productos
+    $productos = [];
+    while ($fila = mysqli_fetch_assoc($resultado)) {
+        $productos[] = [
+            "id" => $fila['id'],
+            "nombre" => $fila['nombre'],
+            "categoria" => $fila['categoria'],
+            "precio" => $fila['precio'],
+            "stock" => $fila['stock']
+        ];
+    }
+
+    // Establecemos el encabezado para JSON y devolvemos los productos
+
+    $productos_json = json_encode($productos);
+    ?>
+
+    <script>
+        // Variables
         let carrito = [];
         const divisa = '€';
         const DOMitems = document.querySelector('#items');
@@ -70,29 +95,33 @@
         const DOMbotonEnviar = document.querySelector('#boton-enviar');
         const DOMcarritoForm = document.querySelector('#carritoForm');
 
+        // Variable donde se almacenarán los productos desde el servidor
+        const baseDeDatos = <?php echo $productos_json; ?>;
+
+        // Función para renderizar los productos
         function renderizarProductos() {
-            // Cambiar por productos consulta 
             baseDeDatos.forEach((info) => {
                 //Estructura
                 const miNodo = document.createElement('div');
                 miNodo.classList.add('productosCaja', 'col-sm-4');
                 // Body
                 const miNodoCardBody = document.createElement('div');
-                miNodoCardBody.classList.add('row','justify-content-between');
+                miNodoCardBody.classList.add('row', 'justify-content-between');
                 //Id 
                 const miNodoId = document.createElement('label');
                 miNodoId.classList.add('productosItem');
                 miNodoId.textContent = info.id;
+
                 //Nombre
                 const miNodoTitle = document.createElement('label');
                 miNodoTitle.classList.add('productosItem');
                 miNodoTitle.textContent = info.nombre;
+
                 //Categoria 
-                // FUtura comprobación,  (if info.categoria = pizza )si es categoria pizza, cambiar clase 
                 const miNodoCateg = document.createElement('label');
                 miNodoCateg.classList.add('productosItem');
                 miNodoCateg.textContent = info.categoria;
-                
+
                 //Precio
                 const miNodoPrecio = document.createElement('label');
                 miNodoPrecio.classList.add('productosItem');
@@ -101,15 +130,20 @@
                 //Stock 
                 const miNodoStock = document.createElement('label');
                 miNodoStock.classList.add('productosItem');
-                miNodoStock.textContent = info.stock+' u';
-                
+                miNodoStock.textContent = info.stock + ' u';
+
                 //Boton añadir
                 const miNodoBoton = document.createElement('button');
-                miNodoBoton.classList.add('productosItem','btn', 'btn-primary');
+                miNodoBoton.classList.add('productosItem', 'btn', 'btn-primary');
                 miNodoBoton.textContent = '+';
-                //insertar
                 miNodoBoton.setAttribute('marcador', info.id);
-                miNodoBoton.addEventListener('click', añadirProductoAlCarrito);
+                miNodoBoton.addEventListener('click', (evento) => {
+                    console.log('Botón + clickeado', evento.target);
+                    añadirProductoAlCarrito(evento); // Llamada a la función al hacer clic
+                });
+                //insertar
+
+
                 miNodoCardBody.appendChild(miNodoId);
                 miNodoCardBody.appendChild(miNodoTitle);
                 miNodoCardBody.appendChild(miNodoCateg);
@@ -127,31 +161,46 @@
             actualizarFormulario();
         }
 
+
+
+        // Modificar la función renderizarCarrito para mostrar comentarios
         function renderizarCarrito() {
             DOMcarrito.textContent = '';
-            const carritoSinDuplicados = [...new Set(carrito)];
-            carritoSinDuplicados.forEach((item) => {
-                const miItem = baseDeDatos.filter((itemBaseDatos) => {
-                    return itemBaseDatos.id === parseInt(item);
-                });
-                const numeroUnidadesItem = carrito.reduce((total, itemId) => {
-                    return itemId === item ? total += 1 : total;
-                }, 0);
-                const miNodo = document.createElement('li');
-                miNodo.classList.add('list-group-item', 'text-right', 'mx-2');
-                miNodo.textContent = `${numeroUnidadesItem} x ${miItem[0].nombre} - ${miItem[0].precio}${divisa}`;
-                const miBoton = document.createElement('button');
-                miBoton.classList.add('btn', 'btn-danger', 'mx-5');
-                miBoton.textContent = 'X';
-                miBoton.style.marginLeft = '1rem';
-                miBoton.dataset.item = item;
-                miBoton.addEventListener('click', borrarItemCarrito);
-                miNodo.appendChild(miBoton);
-                DOMcarrito.appendChild(miNodo);
+
+            carrito.forEach((item) => {
+                const producto = baseDeDatos.find((producto) => producto.id === parseInt(item.id));
+
+                if (producto) {
+                    const nodoProducto = document.createElement('li');
+                    nodoProducto.classList.add('list-group-item', 'text-right', 'mx-2');
+                    nodoProducto.textContent = `${item.cantidad} x ${producto.nombre} - ${producto.precio}${divisa}`;
+
+                    // Mostrar comentario
+                    if (item.comentario) {
+                        const nodoComentario = document.createElement('p');
+                        nodoComentario.classList.add('text-muted');
+                        nodoComentario.textContent = `Comentario: ${item.comentario}`;
+                        nodoProducto.appendChild(nodoComentario);
+                    }
+
+                    // Botón para eliminar el producto del carrito
+                    const botonEliminar = document.createElement('button');
+                    botonEliminar.classList.add('btn', 'btn-danger', 'mx-5');
+                    botonEliminar.textContent = 'X';
+                    botonEliminar.dataset.item = item.id;
+                    botonEliminar.addEventListener('click', borrarItemCarrito);
+
+                    nodoProducto.appendChild(botonEliminar);
+                    DOMcarrito.appendChild(nodoProducto);
+                } else {
+                    console.error(`Producto con ID ${item.id} no encontrado en baseDeDatos.`);
+                }
             });
+
             DOMtotal.textContent = calcularTotal();
         }
 
+        // Función para borrar un item del carrito
         function borrarItemCarrito(evento) {
             const id = evento.target.dataset.item;
             carrito = carrito.filter((carritoId) => {
@@ -160,6 +209,7 @@
             renderizarCarrito();
             actualizarFormulario();
         }
+
 
         function calcularTotal() {
             return carrito.reduce((total, item) => {
@@ -170,6 +220,9 @@
             }, 0).toFixed(2);
         }
 
+
+
+        // Función para vaciar el carrito
         function vaciarCarrito() {
             carrito = [];
             renderizarCarrito();
@@ -179,56 +232,61 @@
         function actualizarFormulario() {
             DOMcarritoForm.innerHTML = '';
             carrito.forEach((item, index) => {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = `item${index}`;
-                input.value = item;
-                DOMcarritoForm.appendChild(input);
+                const inputId = document.createElement('input');
+                inputId.type = 'hidden';
+                inputId.name = `item${index}_id`;
+                inputId.value = item.id;
+
+                const inputCantidad = document.createElement('input');
+                inputCantidad.type = 'hidden';
+                inputCantidad.name = `item${index}_cantidad`;
+                inputCantidad.value = item.cantidad;
+
+                const inputComentario = document.createElement('input');
+                inputComentario.type = 'hidden';
+                inputComentario.name = `item${index}_comentario`;
+                inputComentario.value = item.comentario;
+
+                DOMcarritoForm.appendChild(inputId);
+                DOMcarritoForm.appendChild(inputCantidad);
+                DOMcarritoForm.appendChild(inputComentario);
             });
         }
-        // Nueva función para enviar los datos del carrito al servidor
+        // Función para enviar el carrito
         function enviarCarrito() {
-            const productos = [];
-            const carritoSinDuplicados = [...new Set(carrito)];
-            carritoSinDuplicados.forEach((item) => {
-                const miItem = baseDeDatos.filter((itemBaseDatos) => itemBaseDatos.id === parseInt(item));
-                const numeroUnidadesItem = carrito.reduce((total, itemId) => (itemId === item ? total + 1 : total), 0);
-                productos.push({ id: miItem[0].id, cantidad: numeroUnidadesItem });
+            const mesa = "<?php echo $id; ?>"; // Obtén la mesa desde PHP
+            const pedido = Math.floor(Math.random() * 100000); // Número de pedido (generado aleatoriamente)
+
+            // Construir la URL con los parámetros
+            const url = new URL('/ruta/crearPedido.php', window.location.origin);
+
+            // Añadir los parámetros del pedido
+            url.searchParams.append('mesa', mesa);
+            url.searchParams.append('pedido', pedido);
+
+            // Añadir los artículos del carrito
+            carrito.forEach((item, index) => {
+                url.searchParams.append(`item${index}_id`, item.id);
+                url.searchParams.append(`item${index}_cantidad`, item.cantidad);
+                url.searchParams.append(`item${index}_comentario`, item.comentario);
             });
 
-            fetch('crearPedido.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ productos: productos })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Pedido creado exitosamente');
-                    carrito = [];
-                    renderizarCarrito();
-                } else {
-                    alert('Hubo un error al crear el pedido');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error al enviar el pedido');
-            });
+            // Redirigir a la URL de creación de pedido
+            window.location.href = url.toString();
         }
-
+        
+        // Eventos para el carrito
         DOMbotonVaciar.addEventListener('click', vaciarCarrito);
-
         DOMbotonEnviar.addEventListener('click', () => {
             actualizarFormulario();
             DOMcarritoForm.submit();
         });
 
+        // Llamada inicial para cargar los productos
         renderizarProductos();
         renderizarCarrito();
     </script>
+
 </body>
 
 </html>

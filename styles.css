@@ -19,8 +19,8 @@ section{
     text-align: center;
    
 }
-
-form{
+/* he cambiado esto, antes ponia form */
+.inicio{
     font-size: 1.2em;
     margin: 0 auto;
     background-color: rgb(39, 1, 35);
@@ -112,7 +112,7 @@ form #foto{
 
 /* CrearPedido */
 
-.categoriasDiv {
+/* .categoriasDiv {
     border: 1px solid black;
     width: 80%;
     justify-self: center;
@@ -138,4 +138,41 @@ form #foto{
 
 .botonPedido {
     margin-bottom: 20px;
+} */
+
+.listadoProd{
+    background-color: grey;
+    padding: 20px;
+}
+
+.productosCaja {
+    border: 1px solid rgb(145, 145, 145);
+    background-color: rgb(228, 228, 228);
+    padding: 5px;
+    display: flex;
+    margin: 20px;
+}
+
+.productosItem {
+    width: 20%;
+    align-self: center;
+    margin-right: 10px;
+}
+
+.pizzasCaja {
+    background-color: rgb(228, 94, 94);
+}
+
+.subtit {
+    padding-left: 0;
+}
+
+aside {
+    background-color: #C2D6D6;
+    color: rgb(27, 100, 209);
+    padding: 50px 0;
+}
+
+section {
+    margin-bottom: 10px;
 }
