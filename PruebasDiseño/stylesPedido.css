@@ -30,8 +30,11 @@ main {
 
 .productosItem{
     margin-right: 20px;
+    padding: 10px;
 }
-
+.pizzasCaja{
+    background-color: rgb(228, 94, 94);
+}
 .subtit {
     padding-left: 0;
 }
