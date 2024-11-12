@@ -5,12 +5,15 @@ include "../conexion.php";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['mesaId']) && isset($_POST['productosSeleccionados']) && isset($_POST['cantidades']) && isset($_POST['comentarios'])) {
         $mesaId = $_POST['mesaId'];
+        echo "Valor de mesaId: " . $mesaId . "<br>";
         $productosSeleccionados = $_POST['productosSeleccionados'];
         $cantidades = $_POST['cantidades'];
         $comentarios = $_POST['comentarios'];
 
-        // Crear el pedido en la base de datos
+        // Obtener el ID del camarero
         $camareroId = $_SESSION['id'];
+        
+        // Crear el pedido en la base de datos
         $sqlPedido = "INSERT INTO pedidos (mesa, camarero, total) VALUES ('$mesaId', '$camareroId', 0)";
         if ($conn->query($sqlPedido) === TRUE) {
             $pedidoId = $conn->insert_id; // Obtener el ID del pedido recién creado
@@ -31,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo "Error al actualizar el estado de la mesa: " . $sqlActualizarMesa . "<br>" . $conn->error;
             }
 
-            header("LOCATION:menuCamarero.php");
+            header("LOCATION:salon.php");
         } else {
             echo "Error: " . $sqlPedido . "<br>" . $conn->error;
         }
