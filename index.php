@@ -26,7 +26,7 @@
             </div>
             <div>
                 <input class="enviar" type="submit" value="Entrar">
-                <div>
+            <div>
         </form>
 
     </section>

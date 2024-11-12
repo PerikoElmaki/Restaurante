@@ -48,7 +48,7 @@ include "../sesion.php";
 
                 if ($ocupada == 0) {
                     // nos llevamos por get el id de la mesa para añadirlo al pedido
-                    echo "<div class='mesaLibre'><a class='enlaceMesaId' href='formCrearPedido.php?id=$id'>$id</a></div>";
+                    echo "<div class='mesaLibre'><a class='enlaceMesaId' href='2formCrearPedido.php?id=$id'>$id</a></div>";
                 } else {
                     // Hacemos select en pedidos where mesa = id 
                     echo "<div class='mesaOcupada'><a class='enlaceMesaId' href='formModificarPedido.php?id=$id'>$id</a></div>";

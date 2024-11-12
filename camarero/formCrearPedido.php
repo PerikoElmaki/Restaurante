@@ -50,20 +50,24 @@ include "../sesion.php";
                     $stock= $fila['stock'];
                 
                     echo "<div class='col-12 productosCaja'>";
-                    echo "<h5 class='productosItem'>$id</h5>";
-                    echo "<h4 class='productosItem'>$nombre</h4>";
-                    echo "<h5 class='productosItem'>$categ</h5>";
-                    echo "<h5 class='productosItem'>$precio $</h5>";
-                    echo "<h5 class='productosItem'>$stock u</h5>";
+                    echo "<h5 class='productosItem' name='id' value='$id'>$id</h5>";
+                    echo "<h4 class='productosItem' name='nombre'>$nombre</h4>";
+                    echo "<h5 class='productosItem' name='categ'>$categ</h5>";
+                    echo "<h5 class='productosItem' name='precio'>$precio $</h5>";
+                    $idcoment = $id. "coment";
+                    echo "<input type='text' id='$idcoment' name='$idcoment'>";
+                    // echo "<h5 class='productosItem' name='stock'>$stock u</h5>";
                     // Crear id para chekbox, será el id del producto mas check
                     $idcheck = $id. "check";
-                    echo "<input type='checkbox' id='$idcheck' class='productosItem'>";
+                    echo "<input type='checkbox' id='$idcheck' name='$idcheck' class='productosItem'>";
                     echo"$idcheck";
                     echo "</div>";
+                    
+
                 }
                 ?>
 
-                <input type="submit" class="btn btn-primary"> 
+                <input type="submit" class="btn btn-primary" > 
             </form> 
 
         </div>
