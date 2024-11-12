@@ -1,6 +1,7 @@
 <?php
-include "../conexion.php";
 include "../sesion.php";
+include "../conexion.php";
+
 
 ?>
 <!DOCTYPE html>
@@ -25,8 +26,8 @@ include "../sesion.php";
         </div>
         <div class="centrar">
             <?php
-            $id = $_GET['id'];
-            echo "<h1>Mesa $id</h1>";
+            $idmesa = $_GET['id'];
+            echo "<h1>Mesa $idmesa</h1>";
             $nombre = $_SESSION['nombre'];
             echo "<h3>Camarero: $nombre</h3>";
             ?>
@@ -57,10 +58,6 @@ include "../sesion.php";
                     echo "<h5 class='productosItem' name='precio'>$precio $</h5>";
                     $idcoment = $id . "coment";
 
-                    // array de comentarios como los checks
-                    // echo "<input type='text' id='$idcoment' name='comentarios[]'>";
-                    // echo "<h5 class='productosItem' name='stock'>$stock u</h5>";
-                    // Crear id para chekbox, será el id del producto mas check
                     $idcheck = $id . "check";
                     echo "<input type='checkbox' id='$idcheck' name='productosSeleccionados[]' value='$id'>";
                     echo "$idcheck";
@@ -74,28 +71,26 @@ include "../sesion.php";
             <div class="container">
                 <h2>Productos seleccionados</h2>
                 <form action="crearPedido.php" method="post" class="listadoProd">
+                    <input type="hidden" name="pedidoId" value="<?php echo $pedidoId; ?>">
                     <?php
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         // Verificar si se han seleccionado productos
                         if (isset($_POST['productosSeleccionados'])) {
                             $productosSeleccionados = $_POST['productosSeleccionados']; // Este es el array con los IDs seleccionados
-                            // $comentarios = $_POST['comentarios'];
-                            // Aquí puedes procesar los productos seleccionados
                             foreach ($productosSeleccionados as $idProducto) {
-                                $idcoment = $idProducto . "coment";
                                 echo "<div class='col-12 productosCaja'>";
                                 echo "<p class='productosItem'>Producto seleccionado: $idProducto</p><br>";
-                                echo "<input type='text' class='productosItem' name='$idcoment'>";
+                                echo "<input type='hidden' name='productosSeleccionados[]' value='$idProducto'>";
+                                echo "<input type='number' class='productosItem' name='cantidades[$idProducto]' placeholder='Cantidad' value='1'>";
+                                echo "<input type='text' class='productosItem' name='comentarios[$idProducto]' placeholder='Comentario'>";
                                 echo "</div>";
                             }
-                        } else {
-                            echo "No se ha seleccionado ningún producto.";
                         }
                     }
                     ?>
                     <input type="submit" class="btn btn-primary" value="Enviar pedido">
                 </form>
-
+                
             </div>
         </div>
     </section>

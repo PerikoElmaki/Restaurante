@@ -28,6 +28,7 @@ include "../sesion.php";
             <!-- Saludar camarero -->
             <?php
             $nombre = $_SESSION['nombre'];
+            $camareroId = $_SESSION['id']; // Asegúrate de que el ID del camarero está almacenado en la sesión
             echo "<h3>Camarero: $nombre</h3>";
             ?>
         </div>
@@ -36,28 +37,23 @@ include "../sesion.php";
         <div class="mesasContainer">
             <?php
             $consulta = "SELECT * FROM mesas";
-
             $resultado = mysqli_query($conn, $consulta);
-
-            // SI está ocupada la mesa, te lleva a modificar ese pedido
-            //Si no, te lleva a crear pedido
 
             while ($fila = mysqli_fetch_array($resultado)) {
                 $id = $fila['codigo'];
                 $ocupada = $fila['estado'];
 
-                if ($ocupada == 0) {
-                    // nos llevamos por get el id de la mesa para añadirlo al pedido
+                if ($ocupada == 0) {     
+                                   
                     echo "<div class='mesaLibre'><a class='enlaceMesaId' href='2formCrearPedido.php?id=$id'>$id</a></div>";
+                   
                 } else {
                     // Hacemos select en pedidos where mesa = id 
-                    echo "<div class='mesaOcupada'><a class='enlaceMesaId' href='formModificarPedido.php?id=$id'>$id</a></div>";
+                    echo "<div class='mesaOcupada'><a class='enlaceMesaId' href='listarPedido.php?id=$id'>$id</a></div>";
                 }
             }
             ?>
         </div>
-
-
     </section>
 </body>
 
