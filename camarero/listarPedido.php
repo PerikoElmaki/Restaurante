@@ -59,10 +59,7 @@ $resultadoLineas = mysqli_query($conn, $consultaLineas);
             <div class="container">
                 <h2>Artículos del Pedido <?php echo "$pedidoId"; ?></h2>
                 <?php
-                    // Debugging: Ver el contenido de $resultadoLineas
-                    echo "<pre>";
-                    var_dump($resultadoLineas);
-                    echo "</pre>";
+
                 if ($resultadoLineas && mysqli_num_rows($resultadoLineas) > 0) {
                     echo "<table class='table table-striped'>";
                     echo "<thead><tr><th>Producto</th><th>Cantidad</th><th>Comentario</th></tr></thead>";
@@ -85,6 +82,66 @@ $resultadoLineas = mysqli_query($conn, $consultaLineas);
                 ?>
             </div>
         </section>
+        <br>
+        <hr>
+        <!-- Total y pagar -->
+        <footer class="row justify-content-between">
+            <?php
+            // Obtener el total del pedido
+            $consultaTotal = "SELECT total FROM pedidos WHERE id = '$pedidoId'";
+            $resultadoTotal = mysqli_query($conn, $consultaTotal);
+            if ($resultadoTotal && mysqli_num_rows($resultadoTotal) > 0) {
+                $filaTotal = mysqli_fetch_assoc($resultadoTotal);
+                $totalPedido = $filaTotal['total'];
+                echo "<h2 class='col-5'>Total: $totalPedido $</h2>";
+            } else {
+                echo "<h2>Total: No disponible</h2>";
+            }
+            ?>
+            <div class="col-5">
+                <div class="btn-group">
+                    <button class="btn btn-outline-dark">Ticket</button>
+                    <!-- El de pagar va a abrir un modal -->
+                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal">Pagar</button>
+                </div>
+            </div>
+            <!-- modal para confirmar que vas a pagar -->
+            <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Confirmar pago</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            Confirma que han pagado los <b><?php echo "$totalPedido"; ?></b> euros y que no faltan perras.
+                            <p>Luego el jefe se enfada....</p>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <form id="pagarForm" action="pagarPedido.php" method="post">
+                                <!-- Nos llevamos el id de la mesa y el id del pedido para hacer el update -->
+                                 <?php echo "<p> $mesaId $pedidoId </p>"; ?>
+                                
+                                <input type="hidden" name="mesaId" value="<?php echo $mesaId; ?>">
+                                <input type="hidden" name="pedidoId" value="<?php echo $pedidoId; ?>">
+                                <input type="submit" class="btn btn-success" value="Confirmar y pagar">
+                            </form>
+                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </footer>
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
