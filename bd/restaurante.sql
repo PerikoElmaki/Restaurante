@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-11-2024 a las 23:12:25
+-- Tiempo de generación: 13-11-2024 a las 20:01:11
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -43,7 +43,10 @@ CREATE TABLE `camareros` (
 --
 
 INSERT INTO `camareros` (`id`, `nombre`, `contraseña`, `dni`, `foto`, `encargado`) VALUES
-(1, 'admin', 'admin', '11111111E', '11111111E', 1);
+(1, 'admin', 'admin', '11111111E', '11111111E.jpg', 1),
+(2, 'maricon', 'gay', '2222222G', '2222222G.jpg', 0),
+(3, 'Rosa Melano', 'rosa', '33333333A', 'rosa.jpg', 0),
+(6, 'Pedro', 'redy', '48748246E', '48748246E.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -52,12 +55,25 @@ INSERT INTO `camareros` (`id`, `nombre`, `contraseña`, `dni`, `foto`, `encargad
 --
 
 CREATE TABLE `lineas_pedidos` (
-  `id` int(10) NOT NULL,
-  `pedido` int(10) NOT NULL,
-  `producto` int(10) NOT NULL,
+  `id` int(11) NOT NULL,
+  `pedido` int(11) NOT NULL,
+  `producto` int(11) NOT NULL,
   `cant` int(10) NOT NULL,
   `comentario` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `lineas_pedidos`
+--
+
+INSERT INTO `lineas_pedidos` (`id`, `pedido`, `producto`, `cant`, `comentario`) VALUES
+(17, 4, 2, 1, ''),
+(18, 4, 4, 1, ''),
+(19, 4, 7, 2, ''),
+(20, 5, 2, 1, 'hielo'),
+(21, 5, 4, 1, 'vaso frio'),
+(22, 5, 5, 1, ''),
+(23, 5, 7, 1, '');
 
 -- --------------------------------------------------------
 
@@ -70,6 +86,18 @@ CREATE TABLE `mesas` (
   `estado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `mesas`
+--
+
+INSERT INTO `mesas` (`codigo`, `estado`) VALUES
+('1', 0),
+('2', 1),
+('3', 0),
+('4', 0),
+('5', 0),
+('6', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -77,11 +105,19 @@ CREATE TABLE `mesas` (
 --
 
 CREATE TABLE `pedidos` (
-  `id` int(10) NOT NULL,
-  `mesa` varchar(10) NOT NULL,
-  `camarero` int(10) NOT NULL,
-  `total` float NOT NULL
+  `id` int(11) NOT NULL,
+  `mesa` varchar(10) DEFAULT NULL,
+  `total` float NOT NULL,
+  `pagado` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pedidos`
+--
+
+INSERT INTO `pedidos` (`id`, `mesa`, `total`, `pagado`) VALUES
+(4, NULL, 8.5, 1),
+(5, '2', 9, 0);
 
 -- --------------------------------------------------------
 
@@ -90,12 +126,24 @@ CREATE TABLE `pedidos` (
 --
 
 CREATE TABLE `productos` (
-  `id` int(10) NOT NULL,
+  `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `categoria` varchar(50) NOT NULL,
   `precio` float NOT NULL,
   `stock` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`id`, `nombre`, `categoria`, `precio`, `stock`) VALUES
+(2, 'agua grande', 'bebidas', 2, 10),
+(3, 'coca normal', 'bebidas', 2.5, 10),
+(4, 'alhambra verde', 'bebidas', 2.5, 10),
+(5, 'heiniqueen', 'bebidas', 2.5, 10),
+(6, 'patatas rancheras', 'entrantes', 6, 8),
+(7, 'coqretas', 'entrantes', 2, 10);
 
 --
 -- Índices para tablas volcadas
@@ -126,8 +174,7 @@ ALTER TABLE `mesas`
 --
 ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `mesa` (`mesa`,`camarero`),
-  ADD KEY `camarero` (`camarero`);
+  ADD KEY `mesa` (`mesa`);
 
 --
 -- Indices de la tabla `productos`
@@ -143,25 +190,25 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `camareros`
 --
 ALTER TABLE `camareros`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `lineas_pedidos`
 --
 ALTER TABLE `lineas_pedidos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
@@ -171,15 +218,14 @@ ALTER TABLE `productos`
 -- Filtros para la tabla `lineas_pedidos`
 --
 ALTER TABLE `lineas_pedidos`
-  ADD CONSTRAINT `lineas_pedidos_ibfk_1` FOREIGN KEY (`pedido`) REFERENCES `pedidos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `lineas_pedidos_ibfk_2` FOREIGN KEY (`producto`) REFERENCES `productos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `lineas_pedidos_ibfk_2` FOREIGN KEY (`producto`) REFERENCES `productos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lineas_pedidos_ibfk_3` FOREIGN KEY (`pedido`) REFERENCES `pedidos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  ADD CONSTRAINT `pedidos_ibfk_2` FOREIGN KEY (`mesa`) REFERENCES `mesas` (`codigo`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `pedidos_ibfk_3` FOREIGN KEY (`camarero`) REFERENCES `camareros` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `pedidos_ibfk_2` FOREIGN KEY (`mesa`) REFERENCES `mesas` (`codigo`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -5,7 +5,7 @@
     $usuario = $_POST['nombre'];
     $contra = $_POST['contraseña'];
     $dni = $_POST['dni'];
-    $fotoEnlace = $_POST['foto'];
+    $foto = $_POST['dni'].'.jpg';
     $encargado = $_POST['encargado'];
 
     $consulta = "INSERT INTO camareros VALUES ('NULL','$usuario','$contra','$dni','$foto','$encargado')";

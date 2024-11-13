@@ -34,16 +34,14 @@ $resultadoLineas = mysqli_query($conn, $consultaLineas);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listar Pedido</title>
     <link rel="stylesheet" href="stylesPedido.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
     <nav>
         <div class="volver">
-            <h4><a href="salon.php">
-                    <=Volver al salón
-                        </a>
-            </h4>
+            <a href="salon.php" class="btn btn-primary"><i class="bi bi-arrow-return-left"></i></a>
         </div>
         <div class="centrar">
             <?php
@@ -126,7 +124,6 @@ $resultadoLineas = mysqli_query($conn, $consultaLineas);
                         <div class="modal-footer">
                             <form id="pagarForm" action="pagarPedido.php" method="post">
                                 <!-- Nos llevamos el id de la mesa y el id del pedido para hacer el update -->
-                                 <?php echo "<p> $mesaId $pedidoId </p>"; ?>
                                 
                                 <input type="hidden" name="mesaId" value="<?php echo $mesaId; ?>">
                                 <input type="hidden" name="pedidoId" value="<?php echo $pedidoId; ?>">
