@@ -12,9 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Obtener el ID del camarero
         $camareroId = $_SESSION['id'];
+        // ELIMINAR LO DE CAMARERO, VAMOS A ALTERTAR LA BASE DE DATOS 
         
         // Crear el pedido en la base de datos
-        $sqlPedido = "INSERT INTO pedidos (mesa, camarero, total) VALUES ('$mesaId', '$camareroId', 0)";
+        $sqlPedido = "INSERT INTO pedidos_actuales (mesa, camarero, total) VALUES ('$mesaId', '$camareroId', 0)";
         if ($conn->query($sqlPedido) === TRUE) {
             $pedidoId = $conn->insert_id; // Obtener el ID del pedido recién creado
 
