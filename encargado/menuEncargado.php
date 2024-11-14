@@ -25,8 +25,8 @@ include "../conexion.php";
             ?>
         </div>
     </nav>
-    <section>
-        <div class="enlacesContainer">
+    <section class="container">
+        <div class="row">
             <a href="listadoCamareros.php">
                 <h3>Listado de los camareros</h3>
             </a>
@@ -39,7 +39,7 @@ include "../conexion.php";
         </div>
         <!-- Productos -->
         <h4>Gestión de productos</h4>
-        <div class="enlacesContainer">
+        <div class="row">
             <a href="ListadoProductos.php">
                 <h3>Listado de productos</h3>
             </a>

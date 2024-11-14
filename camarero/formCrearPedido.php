@@ -65,7 +65,6 @@ if ($mesaId === null) {
                     echo "</div>";
                 }
                 ?>
-
                 <input type="submit" class="btn btn-success" value="Añadir al carrito">
             </form>
 
