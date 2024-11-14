@@ -8,7 +8,7 @@ if ($mesaId === null) {
 }
 
 // Obtener el ID del pedido asociado a la mesa
-$consultaPedido = "SELECT id FROM pedidos_actuales WHERE mesa = '$mesaId'"; // Asegúrate de que el estado del pedido es 0 (activo)
+$consultaPedido = "SELECT id FROM pedidos WHERE mesa = '$mesaId'"; // Asegúrate de que el estado del pedido es 0 (activo)
 $resultadoPedido = mysqli_query($conn, $consultaPedido);
 if ($resultadoPedido && mysqli_num_rows($resultadoPedido) > 0) {
     $filaPedido = mysqli_fetch_assoc($resultadoPedido);
@@ -59,7 +59,10 @@ $resultadoLineas = mysqli_query($conn, $consultaLineas);
             <div class="container">
                 <h2>Artículos del Pedido <?php echo "$pedidoId"; ?></h2>
                 <?php
-                
+                    // Debugging: Ver el contenido de $resultadoLineas
+                    echo "<pre>";
+                    var_dump($resultadoLineas);
+                    echo "</pre>";
                 if ($resultadoLineas && mysqli_num_rows($resultadoLineas) > 0) {
                     echo "<table class='table table-striped'>";
                     echo "<thead><tr><th>Producto</th><th>Cantidad</th><th>Comentario</th></tr></thead>";
