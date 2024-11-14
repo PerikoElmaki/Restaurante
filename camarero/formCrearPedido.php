@@ -17,16 +17,14 @@ if ($mesaId === null) {
     <title>Menu</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
     <nav>
         <div class="volver">
-            <h4><a href="salon.php">
-                    <=Volver al salón
-                        </a>
-            </h4>
+            <a href="salon.php" class="btn btn-primary"><i class="bi bi-arrow-return-left"></i></a>
         </div>
         <div class="centrar">
             <?php

@@ -13,7 +13,7 @@
 <body>
     <nav>
         <div class="centrar">
-            <h1>Empleados Vega Media</h1>
+            <h1>Empleados Salsillo</h1>
         </div>
     </nav>
     <section>

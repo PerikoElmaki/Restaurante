@@ -5,16 +5,26 @@ include "../conexion.php";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['mesaId']) && isset($_POST['productosSeleccionados']) && isset($_POST['cantidades']) && isset($_POST['comentarios'])) {
         $mesaId = $_POST['mesaId'];
-        echo "Valor de mesaId: " . $mesaId . "<br>";
         $productosSeleccionados = $_POST['productosSeleccionados'];
         $cantidades = $_POST['cantidades'];
         $comentarios = $_POST['comentarios'];
 
-        // Obtener el ID del camarero
-        $camareroId = $_SESSION['id'];
+        $total = 0.0;
+
+        // Calcular el total del pedido
+        foreach ($productosSeleccionados as $idProducto) {
+            $cantidad = $cantidades[$idProducto];
+            $consultaPrecio = "SELECT precio FROM productos WHERE id = '$idProducto'";
+            $resultadoPrecio = mysqli_query($conn, $consultaPrecio);
+            if ($resultadoPrecio && mysqli_num_rows($resultadoPrecio) > 0) {
+                $filaPrecio = mysqli_fetch_assoc($resultadoPrecio);
+                $precio = $filaPrecio['precio'];
+                $total += $precio * $cantidad;
+            }
+        }
         
         // Crear el pedido en la base de datos
-        $sqlPedido = "INSERT INTO pedidos (mesa, camarero, total) VALUES ('$mesaId', '$camareroId', 0)";
+        $sqlPedido = "INSERT INTO pedidos (mesa,total,pagado) VALUES ('$mesaId', '$total', 0)";
         if ($conn->query($sqlPedido) === TRUE) {
             $pedidoId = $conn->insert_id; // Obtener el ID del pedido recién creado
 
