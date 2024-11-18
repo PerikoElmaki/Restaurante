@@ -53,5 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// Vaciar la tabla lineas_carrito
+$sqlVaciarCarrito = "TRUNCATE TABLE lineas_carrito";
+if (!$conn->query($sqlVaciarCarrito)) {
+    echo "Error al vaciar la tabla lineas_carrito: " . $sqlVaciarCarrito . "<br>" . $conn->error;
+}
+
 mysqli_close($conn);
 ?>
