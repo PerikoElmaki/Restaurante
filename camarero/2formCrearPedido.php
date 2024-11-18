@@ -13,7 +13,7 @@ if ($mesaId === null) {
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Crear Pedido</title>
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -24,10 +24,36 @@ if ($mesaId === null) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
-        .cont {
-            background-color: black;
-            border-radius: 15px;
+        body {
+            background-color: rgb(244, 244, 244);
         }
+
+        .cont {
+            background-color:rgb(50, 50, 50);;
+            border-radius: 7px;
+            padding: 20px;
+        }
+
+        .categ {
+            background-color: aliceblue;
+            padding: 20px;
+            border-radius: 5px;
+            
+        }
+
+        .btn-group .btn {
+            width: 100%;
+            height: 100%;
+            align-content: center;
+        }
+
+        @media (min-width: 768px) {
+            .categ {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        
     </style>
 </head>
 
@@ -40,32 +66,35 @@ if ($mesaId === null) {
         ?>
     </div>
     </nav>
-    <section>
-        <div class="container">
-            <h2>Realiza tu Pedido</h2>
-            <form action="crearPedido.php" method="post">
-                <input type="hidden" name="mesaId" value="<?php echo $idmesa; ?>">
-                <!-- contenedor -->
-                <div class="row justify-content-center">
-                    <div class="cont row g-5">
-                        <!-- header con botones link -->
-                        <div class="col-12">
-                            <div class="btn-group">
-                                <a href="#bebidas" class="btn btn-primary">Bebidas</a>
-                                <a href="#entrantes" class="btn btn-warning">Entrantes</a>
-                                <a href="#ensaladas" class="btn btn-success">Ensaladas</a>
-                                <a href="#pastas" class="btn btn-danger">Pastas</a>
-                                <a href="#pizzas" class="btn btn-info">Pizzas</a>
-                                <a href="#postres" class="btn btn-secondary">Postres</a>
-                            </div>
+
+    <div class="container">
+        <h2>Realiza tu Pedido</h2>
+        <form action="" method="post">
+            <input type="hidden" name="mesaId" value="<?php echo $idmesa; ?>">
+            <!-- contenedor -->
+            <div class="row justify-content-center">
+                <div class="cont row g-5">
+                    <!-- header con botones link -->
+                    <div class="row justify-content-center">
+                        <div class="btn-group col-12 col-md-5 mb-2">
+                            <a href="#bebidas" class="btn btn-primary">Bebidas</a>
+                            <a href="#entrantes" class="btn btn-dark">Entrantes</a>
+                            <a href="#ensaladas" class="btn btn-success">Ensaladas</a>
                         </div>
+                        
+                        <div class="btn-group col-12 col-md-5 mb-2">
+                            <a href="#pastas" class="btn btn-danger">Pastas</a>
+                            <a href="#pizzas" class="btn btn-info">Pizzas</a>
+                            <a href="#postres" class="btn btn-secondary">Postres</a>
+                        </div>
+                    </div>
 
                         <?php
                         $consulta = "SELECT * FROM productos";
                         $resultado = mysqli_query($conn, $consulta);
 
                         $categorias = [
-                            'Bebida' => 'bebidas',
+                            'bebidas' => 'bebidas',
                             'Entrante' => 'entrantes',
                             'Ensalada' => 'ensaladas',
                             'Pasta' => 'pastas',
@@ -74,8 +103,9 @@ if ($mesaId === null) {
                         ];
 
                         foreach ($categorias as $categoria => $clase) {
-                            echo "<div class='col-12 col-md-6 col-lg-4' id='$clase'>";
-                            echo "<h3>" . ucfirst($clase) . "</h3>";
+                            echo "<div class='categ col-12 col-md-5' id='$clase'>";
+                            echo "<h3 class='col-12 mb-3'>" . ucfirst($clase) . "</h3>";
+                            echo "<div class='row justify-content-center'>";
                             while ($fila = mysqli_fetch_array($resultado)) {
                                 if ($fila['categoria'] == $categoria) {
                                     $id = $fila['id'];
@@ -83,13 +113,37 @@ if ($mesaId === null) {
                                     $precio = $fila['precio'];
                                     $stock = $fila['stock'];
 
-                                    echo "<div class='col-4 col-md-3 col-lg-2 mb-1'>";
+                                    // Para cambiarlo de color
+                                    $buttonClass = '';
+                                    switch ($clase) {
+                                        case 'bebidas':
+                                            $buttonClass = 'primary';
+                                            break;
+                                        case 'entrantes':
+                                            $buttonClass = 'warning';
+                                            break;
+                                        case 'ensaladas':
+                                            $buttonClass = 'success';
+                                            break;
+                                        case 'pastas':
+                                            $buttonClass = 'danger';
+                                            break;
+                                        case 'pizzas':
+                                            $buttonClass = 'info';
+                                            break;
+                                        case 'postres':
+                                            $buttonClass = 'secondary';
+                                            break;
+                                    }
+
+                                    echo "<div class='col-6 mb-1'>";
                                     echo "<input type='checkbox' name='productosSeleccionados[]' id='$nombre' class='btn-check' value='$id'>";
-                                    echo "<label for='$nombre' class='btn btn-outline-primary'>$nombre</label>";
+                                    echo "<label for='$nombre' class='botones btn btn-outline-$buttonClass'>$nombre</label>";
                                     echo "</div>";
                                 }
                             }
                             // Reset the result pointer to the beginning
+                            echo "</div>";
                             mysqli_data_seek($resultado, 0);
                             echo "</div>";
                         }
@@ -97,9 +151,9 @@ if ($mesaId === null) {
                     </div>
                 </div>
                 <input type="submit" class="btn btn-primary" value="Enviar pedido">
-            </form>
-        </div>
-    </section>
+        </form>
+    </div>
+
 </body>
 
 </html>
