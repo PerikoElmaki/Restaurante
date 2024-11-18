@@ -2,7 +2,7 @@
 include "../sesion.php";
 include "../conexion.php";
 
-$mesaId = isset($_GET['id']) ? $_GET['id'] : null;
+$mesaId = isset($_GET['mesaId']) ? $_GET['mesaId'] : null;
 if ($mesaId === null) {
     die("Error: id de mesa no especificado.");
 }
@@ -45,8 +45,8 @@ $resultadoLineas = mysqli_query($conn, $consultaLineas);
         </div>
         <div class="centrar">
             <?php
-            $idmesa = $_GET['id'];
-            echo "<h1>Mesa $idmesa</h1>";
+            $mesaId = $_GET['mesaId'];
+            echo "<h1>Mesa $mesaId</h1>";
             $nombre = $_SESSION['nombre'];
             echo "<h3>Camarero: $nombre</h3>";
             ?>

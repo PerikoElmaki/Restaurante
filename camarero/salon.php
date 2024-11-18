@@ -43,10 +43,10 @@ include "../sesion.php";
 
                 if ($ocupada == 0) {
 
-                    echo "<div class='mesaLibre'><a class='enlaceMesaId' href='formCrearPedido.php?id=$id'>$id</a></div>";
+                    echo "<div class='mesaLibre'><a class='enlaceMesaId' href='formCrearPedido.php?mesaId=$id'>$id</a></div>";
                 } else {
                     // Hacemos select en pedidos where mesa = id 
-                    echo "<div class='mesaOcupada'><a class='enlaceMesaId' href='listarPedido.php?id=$id'>$id</a></div>";
+                    echo "<div class='mesaOcupada'><a class='enlaceMesaId' href='listarPedido.php?mesaId=$id'>$id</a></div>";
                 }
             }
             ?>

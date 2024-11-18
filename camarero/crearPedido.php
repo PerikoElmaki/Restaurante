@@ -3,6 +3,7 @@ include "../sesion.php";
 include "../conexion.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // id es de mesa
     if (isset($_POST['mesaId']) && isset($_POST['productosSeleccionados']) && isset($_POST['cantidades']) && isset($_POST['comentarios'])) {
         $mesaId = $_POST['mesaId'];
         $productosSeleccionados = $_POST['productosSeleccionados'];
