@@ -19,7 +19,7 @@ include "../sesion.php";
 <body>
     <nav>
         <div class="volver">
-            <a href="../index.php" class="btn btn-danger"><i class="bi bi-box-arrow-in-left"></i></a>
+            <a href="../logout.php" class="btn btn-danger"><i class="bi bi-box-arrow-in-left"></i></a>
         </div>
         <div class="centrar">
             <h1>Menu Camareros</h1>

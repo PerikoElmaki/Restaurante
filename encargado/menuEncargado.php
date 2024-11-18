@@ -1,5 +1,5 @@
 <?php
-include "../sesion.php";
+include "sesionEncargado.php";
 include "../conexion.php";
 ?>
 <!DOCTYPE html>
@@ -12,10 +12,14 @@ include "../conexion.php";
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
 <body>
     <nav>
+        <div class="volver">
+            <a href="../logout.php" class="btn btn-danger"><i class="bi bi-box-arrow-in-left"></i></a>
+        </div>
         <div class="centrar">
             <h2>Menú Encargado</h2>
             <!-- Saludar camarero -->

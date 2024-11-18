@@ -1,5 +1,5 @@
 <?php
-include "../sesion.php";
+include "sesionEncargado.php";
 include "../conexion.php";
 
 $nombre = $_POST['nombre'];

@@ -38,7 +38,7 @@ if ($mesaId === null) {
     <section>
         <div class="container">
             <h2>Realiza tu Pedido</h2>
-            <form action="" method="post" class="listadoProd">
+            <form action="enviarCarrito.php" method="post" class="listadoProd">
                 <?php
                 $consulta = "SELECT * FROM productos";
 
