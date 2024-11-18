@@ -7,6 +7,8 @@ if ($mesaId === null) {
     die("Error: id de mesa no especificado.");
 }
 
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,32 +66,27 @@ if ($mesaId === null) {
 
                     echo "</div>";
                 }
+                
                 ?>
                 <input type="submit" class="btn btn-success" value="Añadir al carrito">
+
             </form>
 
+            
             <div class="container">
                 <h2>Productos seleccionados</h2>
                 <form action="crearPedido.php" method="post" class="listadoProd">
                     <input type="hidden" name="mesaId" value="<?php echo $mesaId; ?>">
                     <?php
-                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        // Verificar si se han seleccionado productos
-                        if (isset($_POST['productosSeleccionados'])) {
-                            $productosSeleccionados = $_POST['productosSeleccionados']; // Este es el array con los IDs seleccionados
-                            $nombresProductos = $_POST['nombresProductos'];
-                            foreach ($productosSeleccionados as $idProducto) {
-                                $nombreProducto = $nombresProductos[$idProducto];
+                        // Perform a SELECT query to fetch the inserted data
+                        $selectQuery = "SELECT * FROM lineas_carrito";
+                        $result = mysqli_query($conn, $selectQuery);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $idProductoCarrito =$row['id'];
 
-                                echo "<div class='col-12 productosCaja'>";
-                                echo "<p class='productosItem'>$nombreProducto</p><br>";
-                                echo "<input type='hidden' name='productosSeleccionados[]' value='$idProducto'>";
-                                echo "<input type='number' class='productosItem' name='cantidades[$idProducto]' placeholder='Cantidad' value='1'>";
-                                echo "<input type='text' class='productosItem' name='comentarios[$idProducto]' placeholder='Comentario'>";
-                                echo "</div>";
-                            }
                         }
-                    }
+
+                    
                     ?>
                     <input type="submit" class="btn btn-primary" value="Enviar pedido">
                 </form>
