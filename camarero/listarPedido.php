@@ -17,13 +17,25 @@ if ($resultadoPedido && mysqli_num_rows($resultadoPedido) > 0) {
     die("Error: No se encontró un pedido activo para esta mesa.");
 }
 
-// Obtener los artículos del pedido desde lineas_pedidos utilizando una subconsulta para obtener el nombre del producto
+// Obtener los artículos del pedido desde lineas_pedidos utilizando una subconsulta para obtener el nombre del producto y el precio
 $consultaLineas = "
     SELECT lp.*, 
-           (SELECT p.nombre FROM productos p WHERE p.id = lp.producto) AS nombre 
+           (SELECT p.nombre FROM productos p WHERE p.id = lp.producto) AS nombre,
+           (SELECT p.precio FROM productos p WHERE p.id = lp.producto) AS precio
     FROM lineas_pedidos lp 
     WHERE lp.pedido = '$pedidoId'";
 $resultadoLineas = mysqli_query($conn, $consultaLineas);
+
+// Obtener el precio de los productos y guardarlos en un array
+$preciosProductos = [];
+$consultaPrecios = "SELECT id, precio FROM productos";
+$resultadoPrecios = mysqli_query($conn, $consultaPrecios);
+if ($resultadoPrecios && mysqli_num_rows($resultadoPrecios) > 0) {
+    while ($filaPrecio = mysqli_fetch_assoc($resultadoPrecios)) {
+        $preciosProductos[$filaPrecio['id']] = $filaPrecio['precio'];
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -60,15 +72,18 @@ $resultadoLineas = mysqli_query($conn, $consultaLineas);
 
                 if ($resultadoLineas && mysqli_num_rows($resultadoLineas) > 0) {
                     echo "<table class='table table-striped'>";
-                    echo "<thead><tr><th>Producto</th><th>Cantidad</th><th>Comentario</th></tr></thead>";
+                    echo "<thead><tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Comentario</th></tr></thead>";
                     echo "<tbody>";
                     while ($filaLinea = mysqli_fetch_assoc($resultadoLineas)) {
                         $nombreProducto = $filaLinea['nombre'];
                         $cantidad = $filaLinea['cant'];
                         $comentario = $filaLinea['comentario'];
+                        $precio = $filaLinea['precio'];
+
                         echo "<tr>";
                         echo "<td>$nombreProducto</td>";
                         echo "<td>$cantidad</td>";
+                        echo "<td>$precio</td>";
                         echo "<td>$comentario</td>";
                         echo "</tr>";
                     }
@@ -98,20 +113,24 @@ $resultadoLineas = mysqli_query($conn, $consultaLineas);
             ?>
             <div class="col-5">
                 <div class="btn-group">
-                    <form id="ticketForm" action="crearTicket.php" method="post">
+                    <form id="ticketForm" action="ticketCliente.php" method="post">
                         <?php
+                        // enviamos datos a crearTicket
                         mysqli_data_seek($resultadoLineas, 0); // Reset the result pointer to the beginning
                         while ($filaLinea = mysqli_fetch_assoc($resultadoLineas)) {
                             $nombreProducto = $filaLinea['nombre'];
                             $cantidad = $filaLinea['cant'];
                             $comentario = $filaLinea['comentario'];
+                            $precio = $filaLinea['precio'];
                             echo "<input type='hidden' name='productos[]' value='$nombreProducto'>";
                             echo "<input type='hidden' name='cantidades[]' value='$cantidad'>";
                             echo "<input type='hidden' name='comentarios[]' value='$comentario'>";
+                            echo "<input type='hidden' name='precios[]' value='$precio'>";
                         }
                         ?>
                         <input type="hidden" name="mesaId" value="<?php echo $mesaId; ?>">
                         <input type="hidden" name="pedidoId" value="<?php echo $pedidoId; ?>">
+                        <input type="hidden" name="totalPedido" value="<?php echo $totalPedido; ?>">
                         <button type="submit" class="btn btn-outline-dark">Ticket</button>
                     </form>
                     <!-- El de pagar va a abrir un modal -->
@@ -139,7 +158,7 @@ $resultadoLineas = mysqli_query($conn, $consultaLineas);
                         <div class="modal-footer">
                             <form id="pagarForm" action="pagarPedido.php" method="post">
                                 <!-- Nos llevamos el id de la mesa y el id del pedido para hacer el update -->
-                                
+
                                 <input type="hidden" name="mesaId" value="<?php echo $mesaId; ?>">
                                 <input type="hidden" name="pedidoId" value="<?php echo $pedidoId; ?>">
                                 <input type="submit" class="btn btn-success" value="Confirmar y pagar">
