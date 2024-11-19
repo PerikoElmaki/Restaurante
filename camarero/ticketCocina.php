@@ -1,8 +1,5 @@
 <?php
-include "../conexion.php";
-include "../sesion.php";
 
-$nombre = $_SESSION['nombre'];
 
 /* Change to the correct path if you copy this example! */
 require __DIR__ . '/../vendor/autoload.php';
@@ -31,7 +28,7 @@ try {
     $printer->setTextSize(1, 1);
 
 
-
+// comentarios no van
   
 
     $items = [];
@@ -43,7 +40,6 @@ try {
             "comentario" => $comentarios[$i]
         ];
     }
-
     // Encabezado del ticket
     $printer->feed(1);
     $printer->setEmphasis(true);
@@ -75,26 +71,13 @@ try {
     
     $printer->setJustification(Printer::JUSTIFY_LEFT);
     foreach ($items as $item) {
-        $total = $item["cantidad"] * $item["comentario"];
-        $printer->text($item["descripcion"] . " x " . $item["cantidad"] . " -  " . number_format($total, 2) . "$\n");
+        $printer->text($item["descripcion"] . " x " . $item["cantidad"] . " -  " . $item["comentario"] . "\n");
     }
 
     $printer->text("------------------------------------------------\n");
     $printer->setJustification(Printer::JUSTIFY_RIGHT);
 
 
-
-    $printer->setEmphasis(true);
-    $printer->setTextSize(2, 2);
-    $printer->text("Total: " . number_format($totalPedido, 2) . "$ \n");
-    $printer->setEmphasis(false);
-    $printer->setTextSize(1, 1);
-
-    $printer->setJustification(Printer::JUSTIFY_CENTER);
-    // Mensaje de agradecimiento
-    $printer->feed(1);
-    $printer->text("Gracias por su visita\n");
-    $printer->text("Vuelva pronto\n");
 
 
 
