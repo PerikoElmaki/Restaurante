@@ -19,33 +19,30 @@ section{
     text-align: center;
    
 }
+
+.robotoTitle {
+    font-family: "Roboto", serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.roboLetra{
+    font-family: "Roboto", serif;
+    font-weight: 300;
+    font-style: normal;
+}
 /* he cambiado esto, antes ponia form */
-.inicio{
-    font-size: 1.2em;
-    margin: 0 auto;
-    background-color: rgb(121, 8, 109);
-    width: 80%;
-    padding: 8%;
-}
-form input {
-    margin-bottom: 10px;
-    width: 80%;
-    border: 3px solid white;
-    border-radius: 3px;
-
-}
-form .enviar{
-    width: 40%;
-    padding: 8px;
-}
-
-.enlacesContainer{
-    text-align: center;
-    width: 50%;
-    margin-bottom: 10px;
-    padding: 20px;
-    border: 1px solid blueviolet;
-    border-radius: 2px;
+.cuerpoIndex{
+    
+    background-image: url('images/italianoSalon.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Filtro oscuro */
+    background-blend-mode: darken;
+    height: 100vh;
+        
 }
 
 .mesasContainer {
@@ -73,7 +70,7 @@ form .enviar{
 }
 
 .mesaLibre {
-    background-color: rgb(39, 1, 35);
+    background-color: rgb(15, 15, 15);
 }
 
 .enlaceMesaId {
