@@ -2,7 +2,11 @@
 /* Change to the correct path if you copy this example! */
 require __DIR__ . '/../../autoload.php';
 use Mike42\Escpos\Printer;
+// este para usb
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+
+// se puede tener otro para usarla con internet
+
 
 /**
  * Install the printer using USB printing support, and the "Generic / Text Only" driver,
@@ -19,8 +23,8 @@ use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
  */
 try {
     // Enter the share name for your USB printer here
-    $connector = null;
-    //$connector = new WindowsPrintConnector("Receipt Printer");
+    // cambiar si es otro puerto
+    $connector = new WindowsPrintConnector("USB001");
 
     /* Print a "Hello world" receipt" */
     $printer = new Printer($connector);

@@ -5,17 +5,22 @@ include "../sesion.php";
 /* Change to the correct path if you copy this example! */
 require __DIR__ . '../vendor/autoload.php';
 use Mike42\Escpos\Printer;
+// para con internet
 use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
+// este para usb
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
-/* Most printers are open on port 9100, so you just need to know the IP 
- * address of your receipt printer, and then fsockopen() it on that port.
- */
+
 try {
-    // AQUI ponemos ip de la impresora (la que le demos)
-    $connector = new NetworkPrintConnector("10.x.x.x", 9100);
+    // AQUI ponemos ip de la impresora (la que le demos) si es por internet
+    $connector1 = new NetworkPrintConnector("10.x.x.x", 9100);
 
-    // dejamos tal cual 
-    $printer = new Printer($connector);
+
+    // sergunco conector para usb 
+    $connector2 = new WindowsPrintConnector("USB001");
+
+    // o usamoa connector1 
+    $printer = new Printer($connector2);
 
     // Aqui imprimes cosas
     // para lineas
