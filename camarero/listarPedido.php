@@ -98,7 +98,22 @@ $resultadoLineas = mysqli_query($conn, $consultaLineas);
             ?>
             <div class="col-5">
                 <div class="btn-group">
-                    <button class="btn btn-outline-dark">Ticket</button>
+                    <form id="ticketForm" action="crearTicket.php" method="post">
+                        <?php
+                        mysqli_data_seek($resultadoLineas, 0); // Reset the result pointer to the beginning
+                        while ($filaLinea = mysqli_fetch_assoc($resultadoLineas)) {
+                            $nombreProducto = $filaLinea['nombre'];
+                            $cantidad = $filaLinea['cant'];
+                            $comentario = $filaLinea['comentario'];
+                            echo "<input type='hidden' name='productos[]' value='$nombreProducto'>";
+                            echo "<input type='hidden' name='cantidades[]' value='$cantidad'>";
+                            echo "<input type='hidden' name='comentarios[]' value='$comentario'>";
+                        }
+                        ?>
+                        <input type="hidden" name="mesaId" value="<?php echo $mesaId; ?>">
+                        <input type="hidden" name="pedidoId" value="<?php echo $pedidoId; ?>">
+                        <button type="submit" class="btn btn-outline-dark">Ticket</button>
+                    </form>
                     <!-- El de pagar va a abrir un modal -->
                     <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal">Pagar</button>
                 </div>
