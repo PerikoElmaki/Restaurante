@@ -3,6 +3,8 @@ include "../sesion.php";
 include "../conexion.php";
 
 // Eliminar del carrito
+
+// COMPROBAR si solo hay un articulo al darle a eliminar, truncate table
 if (isset($_POST['eliminarProducto'])) {
     $idProductoEliminar = $_POST['eliminarProducto'];
     $mesaId =$_POST['mesaId'];
