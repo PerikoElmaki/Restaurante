@@ -9,7 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $productosSeleccionados = $_POST['productosSeleccionados'];
         $cantidades = $_POST['cantidades'];
         $comentarios = $_POST['comentarios'];
-
+        $nombresProductos = $_POST['nombresProductos'];
+        
         $total = 0.0;
 
         // Calcular el total del pedido
@@ -38,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     echo "Error: " . $sqlLineaPedido . "<br>" . $conn->error;
                 }
             }
+
 
             // Actualizar el estado de la mesa a 1 (ocupada)
             $sqlActualizarMesa = "UPDATE mesas SET estado = 1 WHERE codigo = '$mesaId'";

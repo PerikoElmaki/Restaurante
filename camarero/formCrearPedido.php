@@ -40,8 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
 
 
-
-
     <style>
         body {
             background-color: rgb(244, 244, 244);
@@ -174,9 +172,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </form>
 
-        <div class="row">
+        <div class="row justify-content-center">
             <h2>Productos seleccionados</h2>
-            <form action="crearPedido.php" method="post">
+            
+
+            <form action="ticketCocina.php" id="enviarPedido" method="post">
                 <input type="hidden" name="mesaId" value="<?php echo $mesaId; ?>">
                 <table class="table table-striped">
                     <thead>
@@ -203,6 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 // Creamos formulario
                                 echo "<tr>";
                                 echo "<td>$nombreProducto</td>";
+                                echo "<input type='hidden' name='nombresProductos[]' value='$nombreProducto'>";
                                 echo "<input type='hidden' name='productosSeleccionados[]' value='$idProductoCarrito'>";
                                 echo "<td><input type='number' class='form-control' name='cantidades[$idProductoCarrito]' placeholder='Cantidad' value='1'></td>";
                                 echo "<td><input type='text' class='form-control' name='comentarios[$idProductoCarrito]' placeholder='Comentario'></td>";
@@ -215,7 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ?>
                     </tbody>
                 </table>
-                <input type="submit" class="btn btn-primary" value="Enviar pedido">
+                <input type="submit" class="d-grid col-8 btn btn-primary" value="Enviar pedido">
             </form>
         </div>
     </div>
