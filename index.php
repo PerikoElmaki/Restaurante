@@ -13,22 +13,27 @@
 <body>
     <nav>
         <div class="centrar">
-            <h1>Empleados Salsillo</h1>
+            <h1>Empleados Bresciano's</h1>
         </div>
     </nav>
-    <section>
-        <form action="validarInicio.php" method="post" class="inicio">
-            <div class="col-12">
-                <input type="text" name="nombre" id="nombre" placeholder="Usuario" required>
+    <section class="container">
+        <form action="validarInicio.php" method="post" class="row justify-content-between">
+
+            <div class="form-floating mb-3">
+                <input type="text" name="nombre" id="nombre" class="form-control" placeholder="" required>
+                <label for="nombre">Introduce tu nombre de usuario</label>
             </div>
-            <div class="clav">
-                <input type="password" name="contraseña" id="contraseña" placeholder="contraseña" required>
+
+            <div class="form-floating mb-3">
+                <input type="password" name="contraseña" id="contraseña" class="form-control" placeholder="" required>
+                <label for="contraseña">Contraseña</label>
             </div>
-            <div>
+
+            <div class="col-11 col-7">
                 <input class="enviar" type="submit" value="Entrar">
             <div>
         </form>
-
+        
     </section>
 </body>
 

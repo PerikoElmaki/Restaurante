@@ -31,13 +31,15 @@ include "../sesion.php";
         </div>
     </nav>
     <section>
-        <div>
-            <a href="salon.php">
-                <h3>Salón y comandas</h3>
-            </a>
+    <div class="card">
+        <div class="card-body">
+        <h5 class="card-title">Salón y comandas</h5>
+        <a href="salon.php" class="btn btn-primary">Ir al salón</a>
         </div>
+    </div>
+      
         <!-- Añadir mesa falta -->
-
+        <hr>
 
     </section>
 </body>

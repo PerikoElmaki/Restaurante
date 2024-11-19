@@ -2,7 +2,7 @@ body{
     margin: 0 auto;
 }
 nav{
-    background-color: rgb(26, 0, 23);
+    background-color: rgb(15, 15, 15);
     color: white;
     padding: 15px;
 }
@@ -110,69 +110,7 @@ form #foto{
     margin: 0 auto;
 }
 
-/* CrearPedido */
 
-/* .categoriasDiv {
-    border: 1px solid black;
-    width: 80%;
-    justify-self: center;
-    margin-top: 20px;
-}
-
-.cant {
-    width: 30%;
-    justify-self: center;
-}
-
-.containerCateg {
-    height: 50px;
-}
-
-.categoria {
-    margin-bottom: 10px;
-    width: 30%;
-    height: 80%;
-    font-size: 1.2em;
-    justify-self: center;
-}
-
-.botonPedido {
-    margin-bottom: 20px;
-} */
-
-.listadoProd{
-    background-color: grey;
-    padding: 20px;
-}
-
-.productosCaja {
-    border: 1px solid rgb(145, 145, 145);
-    background-color: rgb(228, 228, 228);
-    padding: 5px;
-    display: flex;
-    margin: 20px;
-}
-
-.productosItem {
-    width: 20%;
-    align-self: center;
-    margin-right: 10px;
-}
-
-.pizzasCaja {
-    background-color: rgb(228, 94, 94);
-}
-
-.subtit {
-    padding-left: 0;
-}
-
-aside {
-    background-color: #C2D6D6;
-    color: rgb(27, 100, 209);
-    padding: 50px 0;
-}
-
-section {
-    margin-bottom: 10px;
+.card{
+    width: 180px;
 }
