@@ -1,0 +1,6 @@
+{
+    "require": {
+        "composer/composer": "^2.8",
+        "mike42/escpos-php": "^2.2"
+    }
+}
