@@ -10,7 +10,9 @@ use Mike42\Escpos\Printer;
 // este para usb
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
-include "crearPedido.php";
+// include "crearPedido.php";
+
+// HACER CONSULTA DEL ÚLTIMO PEDIDO CREADO, Y SUS LINEAS CON LOS COMENTARIOS
 
 try {
     // AQUI ponemos ip de la impresora (la que le demos) si es por internet
@@ -30,7 +32,7 @@ try {
 
 // comentarios no van
   
-
+// cambiar esta mierda por el resultado de las consultas
     $items = [];
 
     for ($i = 0; $i < count($nombresProductos); $i++) {
@@ -88,6 +90,7 @@ try {
 
     /* Close printer */
     $printer->close();
+    // ahora enviamos a salon
     header("LOCATION:salon.php");
 } catch (Exception $e) {
     echo "Couldn't print to this printer: " . $e->getMessage() . "\n";

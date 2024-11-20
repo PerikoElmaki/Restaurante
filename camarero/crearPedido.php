@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!$conn->query($sqlActualizarMesa)) {
                 echo "Error al actualizar el estado de la mesa: " . $sqlActualizarMesa . "<br>" . $conn->error;
             }
-
+            // reenviamos a ticketCOcina
             header("LOCATION:salon.php");
         } else {
             echo "Error: " . $sqlPedido . "<br>" . $conn->error;
@@ -65,4 +65,6 @@ if (!$conn->query($sqlVaciarCarrito)) {
 }
 
 mysqli_close($conn);
+
+
 ?>
