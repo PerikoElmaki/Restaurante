@@ -17,7 +17,7 @@ if ($resultadoPedido && mysqli_num_rows($resultadoPedido) > 0) {
     die("Error: No se encontró un pedido activo para esta mesa.");
 }
 
-// Obtener los artículos del pedido desde lineas_pedidos utilizando una subconsulta para obtener el nombre del producto y el precio
+
 $consultaLineas = "
     SELECT lp.*, 
            (SELECT p.nombre FROM productos p WHERE p.id = lp.producto) AS nombre,
@@ -45,7 +45,7 @@ if ($resultadoPrecios && mysqli_num_rows($resultadoPrecios) > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listar Pedido</title>
-    <link rel="stylesheet" href="stylesPedido.css">
+    <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -67,11 +67,16 @@ if ($resultadoPrecios && mysqli_num_rows($resultadoPrecios) > 0) {
     <div class="container mt-4">
         <section>
             <div class="container">
-                <h2>Artículos del Pedido <?php echo "$pedidoId"; ?></h2>
+                <div class="row justify-content-start ">
+                    <h2 class="col-9 mt-3">Artículos del Pedido <?php echo "$pedidoId "; ?></h2>
+                    <?php
+                    echo "<a href='ticketCocina.php?pedidoId=$pedidoId&mesaId=$mesaId' class='col-3 col-md-2 btn btn-secondary'><i class='bi bi-printer'></i> <br>Ticket cocina</a>";
+                    ?>
+                </div>
                 <?php
 
                 if ($resultadoLineas && mysqli_num_rows($resultadoLineas) > 0) {
-                    echo "<table class='table table-striped'>";
+                    echo "<table class='table'>";
                     echo "<thead><tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Comentario</th></tr></thead>";
                     echo "<tbody>";
                     while ($filaLinea = mysqli_fetch_assoc($resultadoLineas)) {
@@ -79,12 +84,43 @@ if ($resultadoPrecios && mysqli_num_rows($resultadoPrecios) > 0) {
                         $cantidad = $filaLinea['cant'];
                         $comentario = $filaLinea['comentario'];
                         $precio = $filaLinea['precio'];
+                        
+                        $consultaCategoria = "SELECT categoria FROM productos WHERE nombre = '$nombreProducto'";
+                        $resultadoCategoria = mysqli_query($conn, $consultaCategoria);
+                        $categoria = '';
+                        if ($resultadoCategoria && mysqli_num_rows($resultadoCategoria) > 0) {
+                            $filaCategoria = mysqli_fetch_assoc($resultadoCategoria);
+                            $categoria = $filaCategoria['categoria'];
+                        }
 
-                        echo "<tr>";
-                        echo "<td>$nombreProducto</td>";
-                        echo "<td>$cantidad</td>";
-                        echo "<td>$precio</td>";
-                        echo "<td>$comentario</td>";
+                        // Ponemos clase a row según categoría
+                        switch ($categoria) {
+                            case 'bebidas':
+                                $clase = "table-primary";
+                                break;
+                            case 'Postre':
+                                $clase = "table-secondary";
+                                break;
+                            case 'Entrante':
+                                $clase = "table-light";
+                                break;
+                            case 'Ensalada':
+                                $clase = "table-success";
+                                break;
+                            case 'Pasta':
+                                $clase = "table-danger";
+                                break;
+                            case 'Pizza':
+                                $clase = "table-info";
+                                break;
+                        }
+
+
+                        echo "<tr class='$clase'>";
+                        echo "<td class='tdPedidos'>$nombreProducto</td>";
+                        echo "<td class='tdPedidos'>$cantidad</td>";
+                        echo "<td class='tdPedidos'>$precio</td>";
+                        echo "<td class='tdPedidos'>$comentario</td>";
                         echo "</tr>";
                     }
                     echo "</tbody>";
@@ -98,7 +134,7 @@ if ($resultadoPrecios && mysqli_num_rows($resultadoPrecios) > 0) {
         <br>
         <hr>
         <!-- Total y pagar -->
-        <footer class="row justify-content-between">
+        <footer class="row justify-content-start">
             <?php
             // Obtener el total del pedido
             $consultaTotal = "SELECT total FROM pedidos WHERE id = '$pedidoId'";
@@ -106,14 +142,19 @@ if ($resultadoPrecios && mysqli_num_rows($resultadoPrecios) > 0) {
             if ($resultadoTotal && mysqli_num_rows($resultadoTotal) > 0) {
                 $filaTotal = mysqli_fetch_assoc($resultadoTotal);
                 $totalPedido = $filaTotal['total'];
-                echo "<h2 class='col-5'>Total: $totalPedido $</h2>";
+
+                // Mostrar con impuestos 
+                $impuestos = $totalPedido * 0.10;
+                $totalConImpuestos = $totalPedido + $impuestos;
+
+                echo "<h2 class='col-6 mt-2'>Total: $totalConImpuestos $</h2>";
             } else {
                 echo "<h2>Total: No disponible</h2>";
             }
             ?>
-            <div class="col-5">
-                <div class="btn-group">
-                    <form id="ticketForm" action="ticketCliente.php" method="post">
+            <div class="col-6 ">
+                <div class="row justify-content-start">
+                    <form id="ticketForm" class="col-5" action="ticketCliente.php" method="post">
                         <?php
                         // enviamos datos a crearTicket
                         mysqli_data_seek($resultadoLineas, 0); // Reset the result pointer to the beginning
@@ -131,10 +172,10 @@ if ($resultadoPrecios && mysqli_num_rows($resultadoPrecios) > 0) {
                         <input type="hidden" name="mesaId" value="<?php echo $mesaId; ?>">
                         <input type="hidden" name="pedidoId" value="<?php echo $pedidoId; ?>">
                         <input type="hidden" name="totalPedido" value="<?php echo $totalPedido; ?>">
-                        <button type="submit" class="btn btn-outline-dark">Ticket</button>
+                        <button type="submit" class="btn btn-dark"><i class="bi bi-printer"></i><br> Imprimir cuenta</button>
                     </form>
                     <!-- El de pagar va a abrir un modal -->
-                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal">Pagar</button>
+                    <button class="col-5 col-md-4 offset-md-1 btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal">Tramitar pago</button>
                 </div>
             </div>
             <!-- modal para confirmar que vas a pagar -->
@@ -150,7 +191,7 @@ if ($resultadoPrecios && mysqli_num_rows($resultadoPrecios) > 0) {
 
                         <!-- Modal body -->
                         <div class="modal-body">
-                            Confirma que han pagado los <b><?php echo "$totalPedido"; ?></b> euros y que no faltan perras.
+                            Confirma que han pagado los <b><?php echo "$totalConImpuestos"; ?></b> euros y que no faltan perras.
                             <p>Luego el jefe se enfada....</p>
                         </div>
 

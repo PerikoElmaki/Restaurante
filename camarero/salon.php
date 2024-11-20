@@ -52,6 +52,15 @@ include "../sesion.php";
             ?>
         </div>
     </section>
+
+    <?php
+    $truncateQuery = "TRUNCATE TABLE lineas_carrito";
+    if (mysqli_query($conn, $truncateQuery)) {
+        // echo "Table lineas_carrito truncated successfully.";
+    } else {
+        // echo "Error truncating table: " . mysqli_error($conn);
+    }
+    ?>
 </body>
 
 </html>

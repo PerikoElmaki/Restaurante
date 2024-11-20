@@ -79,35 +79,28 @@ section{
     font-size: 2em;
 
 }
-/* Listado */
-table{
-    width: 70%;
+/* Listado*/
+.content{
+    margin: 20px;
     padding: 20px;
-    margin: 0 auto;
 }
 
-tbody{
-    background-color: rgb(228, 228, 228);
-    padding: 20px;
-    height: 100px;
-}
-
-tbody th{
-    text-align: center;
-    padding: 10px;
-}
-
-table img{
-    width: 20%;
-    height: 20%;
-}
 
 /* Añadir camarero form */
 form #foto{
     margin: 0 auto;
+    
 }
 
 
 .card{
     width: 180px;
+}
+
+/* Listar pedidos */
+
+.tdPedidos{
+    align-content: center;
+    /* font-size: 1.2em; */
+    font-family: Arial, Helvetica, sans-serif;
 }

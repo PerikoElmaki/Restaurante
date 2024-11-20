@@ -19,7 +19,7 @@ include "../conexion.php";
         <div class="volver">
             <h4><a href="menuEncargado.php">
                     <=Volver al menu
-                </a>
+                        </a>
             </h4>
         </div>
         <div class="centrar">
@@ -31,46 +31,50 @@ include "../conexion.php";
             ?>
         </div>
     </nav>
-    <section>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Contraseña</th>
-                <th>DNI</th>
-                <th>Foto</th>
-                <th>¿Encargado?</th>
-            </tr>
-            <?php
-            $consulta = "SELECT * FROM camareros";
+    <section class="container">
+        <div class="content row">
+            <div class="col ">
+                <table class="table table-striped">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Contraseña</th>
+                        <th>DNI</th>
+                        <th>Foto</th>
+                        <th>¿Encargado?</th>
+                    </tr>
+                    <?php
+                    $consulta = "SELECT * FROM camareros";
 
-            $resultado = mysqli_query($conn, $consulta);
+                    $resultado = mysqli_query($conn, $consulta);
 
-            while ($fila = mysqli_fetch_array($resultado)) {
+                    while ($fila = mysqli_fetch_array($resultado)) {
 
-                $id = $fila['id'];
-                $nombre = $fila['nombre'];
-                $contra = $fila['contraseña'];
-                $dni = $fila['dni'];
-                // Cambiar esto en base de datos
-                $fotoEnlace = $fila['foto'];
-                $encargadoNum = $fila['encargado'];
+                        $id = $fila['id'];
+                        $nombre = $fila['nombre'];
+                        $contra = $fila['contraseña'];
+                        $dni = $fila['dni'];
+                        // Cambiar esto en base de datos
+                        $fotoEnlace = $fila['foto'];
+                        $encargadoNum = $fila['encargado'];
 
-                $esEncargado = 'No';
-                if ($encargadoNum == 1) {
-                    $esEncargado = 'Si';
-                }
-                echo "<tr>";
-                echo "<td>$id</td>";
-                echo "<td>$nombre</td>";
-                echo "<td>$contra</td>";
-                echo "<td>$dni</td>";
-                echo "<td><img src='images/" . $fotoEnlace . "'></td>";
-                echo "<td>$esEncargado</td>";
-                echo "</tr>";
-            }
-            ?>
-        </table>
+                        $esEncargado = 'No';
+                        if ($encargadoNum == 1) {
+                            $esEncargado = 'Si';
+                        }
+                        echo "<tr>";
+                        echo "<td class='tdPedidos'>$id</td>";
+                        echo "<td class='tdPedidos'>$nombre</td>";
+                        echo "<td class='tdPedidos'>$contra</td>";
+                        echo "<td class='tdPedidos'>$dni</td>";
+                        echo "<td class='fotoCam'><img width='40px' src='images/" . $fotoEnlace . "'></td>";
+                        echo "<td class='tdPedidos'>$esEncargado</td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                </table>
+            </div>
+        </div>
 
     </section>
 </body>
