@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $productosSeleccionados = $_POST['productosSeleccionados'];
         $cantidades = $_POST['cantidades'];
         $comentarios = $_POST['comentarios'];
+        // esto era para ticket
         $nombresProductos = $_POST['nombresProductos'];
         
         $total = 0.0;
@@ -52,7 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // SI REDIRIGO AQUI ANTES DE LLEGAR A TICKET COCINA no SE IMPRIME BIEN 
             // header("LOCATION:salon.php");
             //reenviamos pasandole por get el id del pedido
-            header("LOCATION:ticketCocina.php?pedidoId=$pedidoId");
+            header("LOCATION:ticketCocina.php?pedidoId=$pedidoId&mesaId=$mesaId");
+            // header("LOCATION:ticketCocina.php?pedidoId=$pedidoId");
         } else {
             echo "Error: " . $sqlPedido . "<br>" . $conn->error;
         }

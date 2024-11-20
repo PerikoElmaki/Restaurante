@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h2>Productos seleccionados</h2>
             
 
-            <form action="ticketCocina.php" id="enviarPedido" method="post">
+            <form action="crearPedido.php" id="enviarPedido" method="post">
                 <input type="hidden" name="mesaId" value="<?php echo $mesaId; ?>">
                 <table class="table table-striped">
                     <thead>
@@ -203,6 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 // Creamos formulario
                                 echo "<tr>";
                                 echo "<td>$nombreProducto</td>";
+                                // era para ticket
                                 echo "<input type='hidden' name='nombresProductos[]' value='$nombreProducto'>";
                                 echo "<input type='hidden' name='productosSeleccionados[]' value='$idProductoCarrito'>";
                                 echo "<td><input type='number' class='form-control' name='cantidades[$idProductoCarrito]' placeholder='Cantidad' value='1'></td>";

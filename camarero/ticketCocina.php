@@ -1,5 +1,6 @@
 <?php
-
+include "../sesion.php";
+include "../conexion.php";
 
 /* Change to the correct path if you copy this example! */
 require __DIR__ . '/../vendor/autoload.php';
@@ -10,10 +11,44 @@ use Mike42\Escpos\Printer;
 // este para usb
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
-// include "crearPedido.php";
-$pedidoID = $_GET['pedidoId'];
+$nombre = $_SESSION['nombre'];
+$mesaId = $_GET['mesaId'];
 
-// HACER CONSULTA DEL ÚLTIMO PEDIDO CREADO, Y SUS LINEAS CON LOS COMENTARIOS
+// Obtener el ID del pedido desde la URL
+$pedidoId = isset($_GET['pedidoId']) ? $_GET['pedidoId'] : null;
+if ($pedidoId === null) {
+    die("Error: id de pedido no especificado.");
+}
+
+// COnsulta pedido,
+$query = "
+    SELECT lp.cant AS cantidad, lp.comentario, p.nombre AS descripcion, p.categoria
+    FROM lineas_pedidos lp
+    JOIN productos p ON lp.producto = p.id
+    WHERE lp.pedido = ?
+";
+$stmt = $conn->prepare($query);
+if ($stmt === false) {
+    die("Error en la consulta SQL: " . $conn->error);
+}
+$stmt->bind_param("i", $pedidoId);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$items = [];
+while ($row = $result->fetch_assoc()) {
+    // Comprobar si la categoría es 'bebidas' o postres, para no imprimir
+    // if ($row['categoria'] !== 'bebidas' && $row['categoria'] !== 'Postre'  ) {
+        $items[] = [
+            "descripcion" => $row['descripcion'],
+            "cantidad" => $row['cantidad'],
+            "comentario" => $row['comentario']
+        ];
+    // }
+}
+
+$stmt->close();
+
 
 try {
     // AQUI ponemos ip de la impresora (la que le demos) si es por internet
@@ -37,14 +72,6 @@ try {
 // cambiar esta mierda por el resultado de las consultas
 // CAMBIAR foreach productosSeleccionados o por la consulta
 
-    $items = [];
-    for ($i = 0; $i < count($nombresProductos); $i++) {
-        $items[] = [
-            "descripcion" => $nombresProductos[$i],
-            "cantidad" => $cantidades[$i],
-            "comentario" => $comentarios[$i]
-        ];
-    }
     // Encabezado del ticket
     $printer->feed(1);
     $printer->setEmphasis(true);
@@ -55,19 +82,20 @@ try {
 
     $printer->setEmphasis(false);
     $printer->text("Fecha: " . date("d-m-Y") . "\n");
-    $printer->feed(2);
+    $printer->feed(1);
 
     $printer->setEmphasis(true);
     $printer->setJustification(Printer::JUSTIFY_RIGHT);
-    $printer->text("Hora: " . date("H:i:s") . "\n");
+    $printer->text("Hora del pedido: " . date("H:i") . "\n");
     $printer->setEmphasis(false);
 
     $printer->setJustification(Printer::JUSTIFY_LEFT);
     $printer->setEmphasis(true);
     $printer->setTextSize(2, 2);
-    $printer->text("Mesa:$mesaId\n");
+    $printer->text("Mesa: $mesaId\n");
     $printer->setTextSize(1, 1);
-    $printer->text("Camarero:$nombre\n");
+    $printer->feed(1);
+    $printer->text("Camarero:  $nombre\n");
     $printer->setEmphasis(false);
     $printer->text("------------------------------------------------\n");
 
@@ -76,9 +104,13 @@ try {
     
     $printer->setJustification(Printer::JUSTIFY_LEFT);
     foreach ($items as $item) {
-        $printer->text($item["descripcion"] . " x " . $item["cantidad"] . " -  " . $item["comentario"] . "\n");
+        $printer->setTextSize(2, 2);
+        $printer->text($item["cantidad"] ." - " . $item["descripcion"]) . "\n";
+        $printer->setTextSize(1, 1);
+        $printer->text("\n--      " . $item["comentario"] . "\n");
+        
     }
-
+    $printer->setTextSize(1, 1);
     $printer->text("------------------------------------------------\n");
     $printer->setJustification(Printer::JUSTIFY_RIGHT);
 

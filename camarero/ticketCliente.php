@@ -51,19 +51,24 @@ try {
     $printer->feed(1);
     $printer->setEmphasis(true);
     $printer->setTextSize(2, 2);
-    $printer->text("RESTAURANTE BRESCIANO'S\n");
+    $printer->text("RESTAURANTE IL BRESCIANO\n");
     $printer->setTextSize(1, 1);
     $printer->feed(1);
 
+    $printer->text("Piazza della Loggia,12\n");
+    $printer->text("Brescia ,Italia\n");
+
     $printer->setEmphasis(false);
+    $printer->text("CIF: B68942631\n");
     $printer->text("Fecha: " . date("d-m-Y H:i:s") . "\n");
-    $printer->feed(2);
+    $printer->feed(1);
 
     $printer->setJustification(Printer::JUSTIFY_LEFT);
     $printer->setEmphasis(true);
     $printer->setTextSize(2, 2);
     $printer->text("Mesa:$mesaId\n");
     $printer->setTextSize(1, 1);
+    $printer->feed(1);
     $printer->text("Camarero:$nombre\n");
     $printer->setEmphasis(false);
     $printer->text("------------------------------------------------\n");
@@ -73,7 +78,9 @@ try {
     $printer->setJustification(Printer::JUSTIFY_LEFT);
     foreach ($items as $item) {
         $total = $item["cantidad"] * $item["precio"];
-        $printer->text($item["descripcion"] . " x " . $item["cantidad"] . " -  " . number_format($total, 2) . "$\n");
+        $printer->text($item["cantidad"] . " x " . number_format($item["precio"], 2) . "$   " .  $item["descripcion"] . " - " . number_format($total, 2) . "$\n");
+
+        // $printer->text($item["descripcion"] . " x " . $item["cantidad"] . " -  " . number_format($total, 2) . "$\n");
         
     }
 
@@ -83,8 +90,15 @@ try {
    
    
     $printer->setEmphasis(true);
+    $printer->text("Importe (sin iva): " . number_format($totalPedido, 2) . "$ + ");
+    
+    $impuestos = $totalPedido * 0.10;
+    $totalConImpuestos = $totalPedido + $impuestos;
+    
+    $printer->text("Base (10%): " . number_format($impuestos, 2) . "$ \n");
+    $printer->feed(1);
     $printer->setTextSize(2, 2);
-    $printer->text("Total: " . number_format($totalPedido, 2) . "$ \n");
+    $printer->text("Total : " . number_format($totalConImpuestos, 2) . "$ \n");
     $printer->setEmphasis(false);
     $printer->setTextSize(1, 1);
 
