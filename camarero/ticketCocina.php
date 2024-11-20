@@ -11,6 +11,7 @@ use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
 // include "crearPedido.php";
+$pedidoID = $_GET['pedidoId'];
 
 // HACER CONSULTA DEL ÚLTIMO PEDIDO CREADO, Y SUS LINEAS CON LOS COMENTARIOS
 
@@ -30,11 +31,13 @@ try {
     $printer->setTextSize(1, 1);
 
 
-// comentarios no van
+// SOLUCION: que crearPedido redirija a ticketCocina, pasandole por get el id del pedido, y aqui hacemos consultas de lineas_pedido
+// Volver a reimprimir cocina: en listarPedido, boton que sea formulario por get con el id del pedido, y hacemos consulta
   
 // cambiar esta mierda por el resultado de las consultas
-    $items = [];
+// CAMBIAR foreach productosSeleccionados o por la consulta
 
+    $items = [];
     for ($i = 0; $i < count($nombresProductos); $i++) {
         $items[] = [
             "descripcion" => $nombresProductos[$i],

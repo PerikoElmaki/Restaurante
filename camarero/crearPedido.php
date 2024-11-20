@@ -49,7 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo "Error al actualizar el estado de la mesa: " . $sqlActualizarMesa . "<br>" . $conn->error;
             }
             // reenviamos a ticketCOcina
-            header("LOCATION:salon.php");
+            // SI REDIRIGO AQUI ANTES DE LLEGAR A TICKET COCINA no SE IMPRIME BIEN 
+            // header("LOCATION:salon.php");
+            //reenviamos pasandole por get el id del pedido
+            header("LOCATION:ticketCocina.php?pedidoId=$pedidoId");
         } else {
             echo "Error: " . $sqlPedido . "<br>" . $conn->error;
         }
