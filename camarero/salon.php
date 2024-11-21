@@ -11,9 +11,14 @@ include "../sesion.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <link rel="stylesheet" href="../styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- Boostras -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Fuente -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Roboto&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -22,16 +27,16 @@ include "../sesion.php";
             <a href="menuCamarero.php" class="btn btn-primary"><i class="bi bi-arrow-return-left"></i></a>
         </div>
         <div class="centrar">
-            <h1>Salón</h1>
+            <h3>Salón y comandas</h3>
             <!-- Saludar camarero -->
             <?php
             $nombre = $_SESSION['nombre'];
-            $camareroId = $_SESSION['id']; // Asegúrate de que el ID del camarero está almacenado en la sesión
-            echo "<h3>Camarero: $nombre</h3>";
+            echo "<h5>Camarero: $nombre</h5>";
             ?>
         </div>
     </nav>
     <section>
+        <!-- CAMBIAR POR CARDS, hacedlo bonico -->
         <div class="mesasContainer">
             <?php
             $consulta = "SELECT * FROM mesas";
@@ -51,6 +56,9 @@ include "../sesion.php";
             }
             ?>
         </div>
+        <hr>
+        <span>Día de servicio: </span>
+        <?php echo date('d-m-Y'); ?>
     </section>
 
     <?php

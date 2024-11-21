@@ -10,17 +10,20 @@ include "../conexion.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <link rel="stylesheet" href="../styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- Boostras -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Fuente -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Roboto&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <nav>
         <div class="volver">
-            <h4><a href="menuEncargado.php">
-                    <=Volver al menu
-                        </a>
-            </h4>
+            <a href="menuEncargado.php" class="btn btn-primary"><i class="bi bi-arrow-return-left"></i></a>
         </div>
         <div class="centrar">
             <h2>Encargado</h2>
@@ -32,41 +35,72 @@ include "../conexion.php";
         </div>
     </nav>
     <section>
-        <div>
-            <h3>Listado de Productos</h3>
-        </div>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Categoría</th>
-                <th>Precio </th>
-                <th>Stock</th>
-            </tr>
-            <?php
-            $consulta = "SELECT * FROM productos";
+        <section>
+            <div>
+                <h3>Listado de Productos</h3>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <table class="table table-stripped">
+                        <thead>
+                            <tr>
+                                <th class="text-start">Nombre</th>
+                                <th class="text-start">Categoría</th>
+                                <th class="text-start">Precio </th>
+                                <th class="text-start">Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $consulta = "SELECT * FROM productos";
 
-            $resultado = mysqli_query($conn, $consulta);
+                            $resultado = mysqli_query($conn, $consulta);
 
-            while ($fila = mysqli_fetch_array($resultado)) {
-                $id = $fila['id'];
-                $nombre = $fila['nombre'];
-                $categ = $fila['categoria'];
-                $precio = $fila['precio'];
-                $stock = $fila['stock'];
+                            while ($fila = mysqli_fetch_array($resultado)) {
+                                $id = $fila['id'];
+                                $nombre = $fila['nombre'];
+                                $categ = $fila['categoria'];
+                                $precio = $fila['precio'];
+                                $stock = $fila['stock'];
 
-                echo "<tr>";
-                echo "<td>$id</td>";
-                echo "<td>$nombre</td>";
-                echo "<td>$categ</td>";
-                echo "<td>$precio $</td>";
-                echo "<td>$stock unidades</td>";
-                echo "</tr>";
-            }
-            ?>
-        </table>
+                                // Ponemos clase a row según categoría
+                                $clase = "";
+                                switch ($categ) {
+                                    case 'bebidas':
+                                        $clase = "table-primary";
+                                        break;
+                                    case 'Postre':
+                                        $clase = "table-secondary";
+                                        break;
+                                    case 'Entrante':
+                                        $clase = "table-light";
+                                        break;
+                                    case 'Ensalada':
+                                        $clase = "table-success";
+                                        break;
+                                    case 'Pasta':
+                                        $clase = "table-danger";
+                                        break;
+                                    case 'Pizza':
+                                        $clase = "table-info";
+                                        break;
+                                }
 
-    </section>
+
+                                echo "<tr class='$clase'>";
+                                echo "<td class='tdProductos'>$nombre</td>";
+                                echo "<td class='tdProductos'>$categ</td>";
+                                echo "<td class='tdProductos'>$precio $</td>";
+                                echo "<td class='tdProductos'>$stock unidades</td>";
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
 </body>
 
 </html>

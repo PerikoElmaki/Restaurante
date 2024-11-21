@@ -19,7 +19,7 @@
 <body class="cuerpoIndex">
     <nav>
         <div class="centrar">
-            <h3 class="robotoTitle mt-1">Empleados Bresciano's</h3>
+            <h3>Empleados Il Bresciano</h3>
         </div>
     </nav>
     <section class="container">
