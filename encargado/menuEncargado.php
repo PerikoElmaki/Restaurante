@@ -35,28 +35,52 @@ include "../conexion.php";
         </div>
     </nav>
     <section class="container">
-        <div class="row">
-            <a href="listadoCamareros.php">
-                <h3>Listado de los camareros</h3>
-            </a>
-            <a href="formAñadirCamarero.php">
-                <h3>Añadir camareros</h3>
-            </a>
-            <a href="../camarero/menuCamarero.php">
-                <h3>Vista de Camarero</h3>
-            </a>
-        </div>
-        <!-- Productos -->
-        <h4>Gestión de productos</h4>
-        <div class="row">
-            <a href="ListadoProductos.php">
-                <h3>Listado de productos</h3>
-            </a>
-            <a href="formAñadirProductos.php">
-                <h3>Añadir productos</h3>
-            </a>
+
+        <div class="row justify-content-center">
+            <div class="cartas card col-7 col-md-3 mb-4 me-3 bg-dark ">
+                <div class="card-body">
+                    <a href="listadoProductos.php" class="btn stretched-link text-white">
+                        <h5 class="card-title">Listado de productos</h5>
+                    </a>
+                </div>
+            </div>
+            <div class="cartas card col-7 col-md-3 mb-4 me-3 border-dark ">
+                <div class="card-body">
+                    <a href="formAñadirProductos.php" class="btn border-white text-dark stretched-link">
+                        <h5 class="card-title">Añadir productos</h5>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cartas card col-7 col-md-3 mb-4 me-3 bg-dark ">
+                <div class="card-body">
+                    <a href="listadoCamareros.php" class="btn stretched-link text-white">
+                        <h5 class="card-title">Listado de camareros</h5>
+                    </a>
+                </div>
+            </div>
+
+            <div class="cartas card col-7 col-md-3 mb-4 me-3 border-dark ">
+                <div class="card-body">
+                    <a href="formAñadirCamarero.php" class="btn border-white text-dark stretched-link">
+                        <h5 class="card-title">Añadir camareros</h5>
+                    </a>
+                </div>
+            </div>
+
+            <!-- JUNTAR LOS 4 cards con modales -->
+             <!-- 1 modal para gestionar productos -->
+            <!-- Otro modal para gestionar camareros -->
+             <!-- otro para facturas -->
+
+
+
         </div>
 
+
+        <hr>
+        <span>Día de servicio: </span>
+        <?php echo date('d-m-Y'); ?>
     </section>
 </body>
 

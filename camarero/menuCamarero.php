@@ -27,7 +27,7 @@ include "../sesion.php";
             <a href="../logout.php" class="btn btn-danger"><i class="bi bi-box-arrow-in-left"></i></a>
         </div>
         <div class="centrar">
-            <h3 class="roboTitle">Menu Camareros</h3>
+            <h3>Menu Camareros</h3>
             <!-- Saludar camarero -->
             <?php
             $nombre = $_SESSION['nombre'];
@@ -37,17 +37,28 @@ include "../sesion.php";
     </nav>
     <section class="container">
         <div class="row justify-content-center">
-            <div class="card col-7 col-md-4">
+
+            <div class="cartas card col-7 col-md-3 mb-4 me-3 bg-dark ">
                 <div class="card-body">
-                    <h5 class="card-title">Salón y comandas</h5>
-                    <a href="salon.php" class="btn btn-primary">Ir al salón</a>
+                    <a href="salon.php" class="btn stretched-link text-white">
+                        <h5 class="card-title">Acceder al salón</h5>
+                    </a>
                 </div>
             </div>
+            <div class="cartas card col-7 col-md-3 mb-4 me-3 border-dark ">
+                <div class="card-body">
+                    <a href="listadoProductos.php" class="btn border-white text-dark stretched-link">
+                        <h5 class="card-title">Stock de productos</h5>
+                    </a>
+                </div>
+            </div>
+
         </div>
 
-        <!-- Añadir mesa falta -->
-        <hr>
 
+        <hr>
+        <span>Día de servicio: </span>
+        <?php echo date('d-m-Y'); ?>
     </section>
 </body>
 
