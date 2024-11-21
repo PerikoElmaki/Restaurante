@@ -76,7 +76,7 @@ try {
     $printer->feed(1);
     $printer->setEmphasis(true);
     $printer->setTextSize(2, 2);
-    $printer->text("COCINA BRESCIANO'S\n");
+    $printer->text("COCINA IL BRESCIANO'S\n");
     $printer->setTextSize(1, 1);
     $printer->feed(1);
 
