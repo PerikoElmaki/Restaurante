@@ -37,15 +37,21 @@ include "../sesion.php";
     </nav>
     <section class="container">
         <div class="row justify-content-center">
-            <div class="card col-7 col-md-4">
+            <div class="card col-8 col-md-3 mb-4 ">
                 <div class="card-body">
                     <h5 class="card-title">Salón y comandas</h5>
-                    <a href="salon.php" class="btn btn-primary">Ir al salón</a>
+                    <a href="salon.php" class="btn btn-dark">Ir al salón</a>
+                </div>
+            </div>
+            <div class="card col-8 col-md-3 offset-md-1 mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Listado de productos</h5>
+                    <a href="listadoProductos.php" class="btn btn-secondary">Consultar Stock</a>
                 </div>
             </div>
         </div>
 
-        <!-- Añadir mesa falta -->
+
         <hr>
 
     </section>
