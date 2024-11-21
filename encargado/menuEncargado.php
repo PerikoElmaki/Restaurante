@@ -19,6 +19,20 @@ include "../conexion.php";
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Roboto&display=swap" rel="stylesheet">
 </head>
+<style>
+    body,
+    html {
+        height: 100%;
+        margin: 0;
+    }
+
+    .container {
+        height: 60vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+</style>
 
 <body>
     <nav>
@@ -34,44 +48,91 @@ include "../conexion.php";
             ?>
         </div>
     </nav>
+
     <section class="container">
 
+        <!-- Button trigger modal for Gestionar productos -->
         <div class="row justify-content-center">
-            <div class="cartas card col-7 col-md-3 mb-4 me-3 bg-dark ">
+            <div class="cartas card col-8 col-md-5 mb-4 me-3 bg-dark ">
                 <div class="card-body">
-                    <a href="listadoProductos.php" class="btn stretched-link text-white">
-                        <h5 class="card-title">Listado de productos</h5>
-                    </a>
-                </div>
-            </div>
-            <div class="cartas card col-7 col-md-3 mb-4 me-3 border-dark ">
-                <div class="card-body">
-                    <a href="formAñadirProductos.php" class="btn border-white text-dark stretched-link">
-                        <h5 class="card-title">Añadir productos</h5>
+                    <a href="listadoProductos.php" class="btn stretched-link text-white" data-bs-toggle="modal" data-bs-target="#productosModal">
+                        <h5 class="card-title">Gestionar productos</h5>
                     </a>
                 </div>
             </div>
 
-            <div class="cartas card col-7 col-md-3 mb-4 me-3 bg-dark ">
+            <!-- Modal for Gestionar productos -->
+            <div class=" modal fade" id="productosModal" tabindex="-1" aria-labelledby="productosModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="productosModalLabel">Gestión de productos</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="modal-text">Accede a los apartados</p>
+                            <a href="listadoProductos.php" class="btn btn-primary btn-lg me-3">Listado-stock</a>
+                            <a href="formAñadirProductos.php" class="btn btn-warning btn-lg">Añadir producto</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-none d-md-grid">
+                <br>
+                <br>
+            </div>
+            <!-- Button trigger modal for Gestionar camareros -->
+            <div class="cartas card col-8 col-md-5  mb-4 me-3 border-dark ">
                 <div class="card-body">
-                    <a href="listadoCamareros.php" class="btn stretched-link text-white">
-                        <h5 class="card-title">Listado de camareros</h5>
+                    <a href="formAñadirProductos.php" class="btn border-white text-dark stretched-link" data-bs-toggle="modal" data-bs-target="#camarerosModal">
+                        <h5 class="card-title">Gestionar camareros</h5>
                     </a>
                 </div>
             </div>
 
-            <div class="cartas card col-7 col-md-3 mb-4 me-3 border-dark ">
+
+            <!-- Modal for Gestionar camareros -->
+            <div class="modal fade" id="camarerosModal" tabindex="-1" aria-labelledby="camarerosModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="camarerosModalLabel">Gestionar camareros</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="modal-text"><b>Atención</b>, las contraseñas son visibles</p>
+                            <a href="listadoCamareros.php" class="btn btn-primary btn-lg me-3">Gestión y listado</a>
+                            <a href="formAñadirCamarero.php" class="btn btn-warning btn-lg">Añadir camarero</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button trigger modal for Gestionar facturas -->
+            <div class="cartas card col-8 col-md-5 mb-4 me-3 bg-success">
                 <div class="card-body">
-                    <a href="formAñadirCamarero.php" class="btn border-white text-dark stretched-link">
-                        <h5 class="card-title">Añadir camareros</h5>
+                    <a href="listadoFacturas.php" class="btn stretched-link text-white" data-bs-toggle="modal" data-bs-target="#facturasModal">
+                        <h5 class="card-title">Gestionar facturas</h5>
                     </a>
                 </div>
             </div>
 
-            <!-- JUNTAR LOS 4 cards con modales -->
-             <!-- 1 modal para gestionar productos -->
-            <!-- Otro modal para gestionar camareros -->
-             <!-- otro para facturas -->
+            <!-- Modal for Gestionar facturas -->
+            <div class="modal fade" id="facturasModal" tabindex="-1" aria-labelledby="facturasModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="facturasModalLabel">Gestionar facturas</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <a href="gestionFacturas.php" class="btn btn-primary">Ir a listado de facturas</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
 
 
 

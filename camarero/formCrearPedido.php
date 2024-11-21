@@ -49,29 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-        .title {
-            text-align: center;
-        }
-
-        .cont {
-            background-color: rgb(15, 15, 15);
-            border-radius: 7px;
-            padding: 20px;
-        }
-
-        .categ {
-            background-color: aliceblue;
-            padding: 20px;
-            border-radius: 5px;
-            margin-right: auto;
-            margin-left: auto;
-        }
-
-        .botones {
-            width: 100%;
-            height: 100%;
-            align-content: center;
-        }
     </style>
 
 </head>
@@ -138,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         foreach ($categorias as $categoria => $tabId) {
                             $activeClass = $tabId === 'pills-bebidas' ? 'show active' : '';
                             echo "<div class='tab-pane fade $activeClass' id='$tabId' role='tabpanel' aria-labelledby='$tabId-tab'>";
-                            echo "<div class='row justify-content-center'>";
+                            echo "<div class='row justify-content-center '>";
                             while ($fila = mysqli_fetch_array($resultado)) {
                                 if ($fila['categoria'] == $categoria) {
                                     $id = $fila['id'];
@@ -168,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             break;
                                     }
 
-                                    echo "<div class='col-6 col-sm-6 col-md-4 col-lg-3 mb-1'>";
+                                    echo "<div class='d-grid col-md-4 col-lg-3 mb-1'>";
                                     echo "<input type='checkbox' name='productosSeleccionados[]' id='$nombre' class='btn-check' value='$id'>";
                                     echo "<label for='$nombre' class='$clase'>$nombre</label>";
                                     echo "</div>";
@@ -182,11 +159,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ?>
                     </div>
                 </div>
-                <input type="submit" class="col-5 mt-2 btn btn-success" value="Añadir al carrito">
+                <input type="submit" class="col-5 col-md-4 col-lg-3 b mt-2 btn btn-success" value="Añadir al carrito">
             </div>
         </form>
 
-        <div class="row justify-content-center">
+        <div class="row justify-content-center text-center">
             <h2>Productos seleccionados</h2>
 
 
@@ -231,7 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ?>
                     </tbody>
                 </table>
-                <input type="submit" class="d-grid col-8 btn btn-primary" value="Enviar pedido">
+                <input type="submit" class="col-5 col-md-4 col-lg-3 btn btn-primary" value="Enviar pedido">
             </form>
         </div>
     </div>
