@@ -99,43 +99,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="hidden" name="mesaId" value="<?php echo $mesaId; ?>">
             <!-- contenedor -->
             <div class="row justify-content-center">
-                <div class="cont row g-3">
+                <div class="cont g-3">
                     <!-- header con botones link -->
-                    <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="pills-bebidas-tab" data-bs-toggle="pill" data-bs-target="#pills-bebidas" type="button" role="tab" aria-controls="pills-bebidas" aria-selected="true">Bebidas</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-entrantes-tab" data-bs-toggle="pill" data-bs-target="#pills-entrantes" type="button" role="tab" aria-controls="pills-entrantes" aria-selected="false">Entrantes</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-ensaladas-tab" data-bs-toggle="pill" data-bs-target="#pills-ensaladas" type="button" role="tab" aria-controls="pills-ensaladas" aria-selected="false">Ensaladas</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-pastas-tab" data-bs-toggle="pill" data-bs-target="#pills-pastas" type="button" role="tab" aria-controls="pills-pastas" aria-selected="false">Pastas</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-postres-tab" data-bs-toggle="pill" data-bs-target="#pills-postres" type="button" role="tab" aria-controls="pills-postres" aria-selected="false">Postres</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-pizzas-tab" data-bs-toggle="pill" data-bs-target="#pills-pizzas" type="button" role="tab" aria-controls="pills-pizzas" aria-selected="false">Pizzas</button>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="pills-tabContent">
+                    <div class="accordion" id="accordionExample">
                         <?php
                         $consulta = "SELECT * FROM productos";
                         $resultado = mysqli_query($conn, $consulta);
                         $categorias = [
-                            'bebidas' => 'pills-bebidas',
-                            'Entrante' => 'pills-entrantes',
-                            'Ensalada' => 'pills-ensaladas',
-                            'Pasta' => 'pills-pastas',
-                            'Pizza' => 'pills-pizzas',
-                            'Postre' => 'pills-postres'
+                            'bebidas' => 'Bebidas',
+                            'Entrante' => 'Entrantes',
+                            'Ensalada' => 'Ensaladas',
+                            'Pasta' => 'Pastas',
+                            'Pizza' => 'Pizzas',
+                            'Postre' => 'Postres'
                         ];
-                        foreach ($categorias as $categoria => $tabId) {
-                            $activeClass = $tabId === 'pills-bebidas' ? 'show active' : '';
-                            echo "<div class='tab-pane fade $activeClass' id='$tabId' role='tabpanel' aria-labelledby='$tabId-tab'>";
+                        foreach ($categorias as $categoria => $categoriaNombre) {
+                            echo "<div class='accordion-item'>";
+                            echo "<h2 class='accordion-header' id='heading$categoria'>";
+                            echo "<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapse$categoria' aria-expanded='true' aria-controls='collapse$categoria'>";
+                            echo "$categoriaNombre";
+                            echo "</button>";
+                            echo "</h2>";
+                            echo "<div id='collapse$categoria' class='accordion-collapse collapse show' aria-labelledby='heading$categoria' data-bs-parent='#accordionExample'>";
+                            echo "<div class='accordion-body'>";
                             echo "<div class='row justify-content-center'>";
                             while ($fila = mysqli_fetch_array($resultado)) {
                                 if ($fila['categoria'] == $categoria) {
@@ -153,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             $clase = "btn btn-outline-secondary";
                                             break;
                                         case 'Entrante':
-                                            $clase = "btn btn-outline-light";
+                                            $clase = "btn btn-outline-light border-dark text-dark";
                                             break;
                                         case 'Ensalada':
                                             $clase = "btn btn-outline-success";
@@ -166,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             break;
                                     }
 
-                                    echo "<div class='col-6 col-sm-6 col-md-4 col-lg-3 mb-1'>";
+                                    echo "<div class='d-grid col-6 col-sm-6 col-md-4 col-lg-3 mb-1'>";
                                     echo "<input type='checkbox' name='productosSeleccionados[]' id='$nombre' class='btn-check' value='$id'>";
                                     echo "<label for='$nombre' class='$clase'>$nombre</label>";
                                     echo "</div>";
@@ -176,11 +162,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             mysqli_data_seek($resultado, 0);
                             echo "</div>";
                             echo "</div>";
+                            echo "</div>";
                         }
                         ?>
                     </div>
                 </div>
-                <input type="submit" class="col-5 mt-2 btn btn-success" value="Añadir al carrito">
+                <div class="d-flex justify-content-center mb-3 ">
+                    <input type="submit" class="col-7 mt-3 btn btn-success" value="Añadir al carrito">
+                </div>
             </div>
         </form>
 
