@@ -7,12 +7,14 @@ if ($mesaId === null) {
     die("Error: id de mesa no especificado.");
 }
 
-// Obtener el ID del pedido asociado a la mesa
-$consultaPedido = "SELECT id FROM pedidos WHERE mesa = '$mesaId'"; // Asegúrate de que el estado del pedido es 0 (activo)
+
+// Obtener el ID del pedido asociado a la mesa y la fecha
+$consultaPedido = "SELECT id, fecha FROM pedidos WHERE mesa = '$mesaId'"; // Asegúrate de que el estado del pedido es 0 (activo)
 $resultadoPedido = mysqli_query($conn, $consultaPedido);
 if ($resultadoPedido && mysqli_num_rows($resultadoPedido) > 0) {
     $filaPedido = mysqli_fetch_assoc($resultadoPedido);
     $pedidoId = $filaPedido['id'];
+    $fechaPedido = $filaPedido['fecha'];
 } else {
     die("Error: No se encontró un pedido activo para esta mesa.");
 }
@@ -74,7 +76,8 @@ if ($resultadoPrecios && mysqli_num_rows($resultadoPrecios) > 0) {
         <section>
             <div class="container">
                 <div class="row justify-content-start mt-1 ">
-                    <h2 class="col-9 mt-1">Artículos del Pedido <?php echo "$pedidoId "; ?></h2>
+
+                    <h2 class="col-9 mt-1">Artículos del Pedido : <?php echo date('H:i', strtotime($fechaPedido)); ?></h2>
                     <?php
                     echo "<a href='ticketCocina.php?pedidoId=$pedidoId&mesaId=$mesaId' class='col-3 col-md-2 btn btn-secondary'><i class='bi bi-printer'></i> <br>Ticket cocina</a>";
                     ?>
@@ -153,7 +156,7 @@ if ($resultadoPrecios && mysqli_num_rows($resultadoPrecios) > 0) {
                 $impuestos = $totalPedido * 0.10;
                 $totalConImpuestos = $totalPedido + $impuestos;
 
-                echo "<h2 class='col-6 mt-2'>Total: $totalConImpuestos $</h2>";
+                echo "<h2 class='col-5 mt-2 ms-3'>Total: $totalConImpuestos $</h2>";
             } else {
                 echo "<h2>Total: No disponible</h2>";
             }
@@ -178,14 +181,14 @@ if ($resultadoPrecios && mysqli_num_rows($resultadoPrecios) > 0) {
                         <input type="hidden" name="mesaId" value="<?php echo $mesaId; ?>">
                         <input type="hidden" name="pedidoId" value="<?php echo $pedidoId; ?>">
                         <input type="hidden" name="totalPedido" value="<?php echo $totalPedido; ?>">
-                        <button type="submit" class="btn btn-dark"><i class="bi bi-printer"></i><br> Imprimir cuenta</button>
+                        <button type="submit" class="btn btn-dark ms-5"><i class="bi bi-printer"></i><br> Imprimir cuenta</button>
                     </form>
                     <!-- El de pagar va a abrir un modal -->
-                    <button class="col-5 col-md-4 offset-md-1 btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal">Tramitar pago</button>
+                    <button class="col-4 col-md-4 offset-md-1 btn btn-warning ms-5" data-bs-toggle="modal" data-bs-target="#myModal">Tramitar pago</button>
                 </div>
             </div>
             <!-- modal para confirmar que vas a pagar -->
-            <div class="modal" id="myModal">
+            <div class="modal fade" id="myModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
 

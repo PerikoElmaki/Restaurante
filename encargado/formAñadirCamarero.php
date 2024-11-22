@@ -24,7 +24,7 @@ include "../conexion.php";
 <body>
     <nav>
         <div class="volver">
-            <a href="menuEncargado.php" class="btn btn-primary"><i class="bi bi-arrow-return-left"></i></a>
+            <a href="2menuEncargado.php" class="btn btn-primary"><i class="bi bi-arrow-return-left"></i></a>
         </div>
         <div class="centrar">
             <h2>Encargado</h2>

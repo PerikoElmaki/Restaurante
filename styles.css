@@ -20,6 +20,7 @@ section{
    
 }
 
+
 .robotoTitle {
     font-family: "Roboto", serif;
     font-weight: 600;
@@ -34,7 +35,8 @@ section{
 /* he cambiado esto, antes ponia form */
 .cuerpoIndex{
     
-    background-image: url('images/italianoSalon.jpg');
+    /* background-image: url('images/italianoSalon.jpg'); */
+    background-image: url('images/Altillo.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -63,14 +65,19 @@ section{
     padding: 10px;
     text-align: center;
     align-items: center;
+    border-radius: 3px;
+    transition: 0.5s;
 }
 
+.mesaLibre:hover,.mesaOcupada :hover{
+    transform: scale(1.1);
+}
 .mesaOcupada {
-    background-color: rgb(228, 12, 12);
+    background-color: rgb(240, 50, 50);
 }
 
 .mesaLibre {
-    background-color: rgb(15, 15, 15);
+    background-color: rgb(26, 26, 26);
 }
 
 .enlaceMesaId {

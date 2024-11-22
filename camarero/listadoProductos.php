@@ -34,12 +34,12 @@ include "../conexion.php";
             ?>
         </div>
     </nav>
-    <section class="mt-4">
+    <section class="container mt-4">
         <div>
             <h3><?php echo date('d-m-Y'); ?></h3>
            
         </div>
-        <div class="container">
+        <div>
             <div class="row">
                 <table class="table table-stripped">
                     <thead>

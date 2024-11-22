@@ -21,7 +21,7 @@ include "../sesion.php";
     <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Roboto&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="cuerpoIndex">
     <nav>
         <div class="volver">
             <a href="../logout.php" class="btn btn-danger"><i class="bi bi-box-arrow-in-left"></i></a>
@@ -55,10 +55,9 @@ include "../sesion.php";
 
         </div>
 
-
         <hr>
-        <span>Día de servicio: </span>
-        <?php echo date('d-m-Y'); ?>
+        <h6 class="text-white ">Día de servicio: <?php echo date('d-m-Y'); ?> </h6>
+
     </section>
 </body>
 

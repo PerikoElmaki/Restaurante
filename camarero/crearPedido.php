@@ -27,9 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $total += $precio * $cantidad;
             }
         }
-        
+
         // Crear el pedido en la base de datos
-        $sqlPedido = "INSERT INTO pedidos (mesa,total,pagado) VALUES ('$mesaId', '$total', 0)";
+        $sqlPedido = "INSERT INTO pedidos (mesa, total, pagado, fecha) VALUES ('$mesaId', '$total', 0, NOW())";
         if ($conn->query($sqlPedido) === TRUE) {
             $pedidoId = $conn->insert_id; // Obtener el ID del pedido recién creado
 

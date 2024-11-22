@@ -46,3 +46,25 @@ VALUES
     ('Gelato', 'Postre', 4.00, 50), 
     ('Cannoli', 'Postre', 4.50, 50), 
     ('Torta al Limone', 'Postre', 5.00, 50);
+
+
+
+
+ 
+INSERT INTO `mesas` (`codigo`, `estado`) VALUES
+('1', 0),
+('2', 0),
+('3', 0),
+('4', 0),
+('5', 0),
+('6', 0),
+('7',0), 
+('8',0), 
+('9',0);
+
+
+INSERT INTO `camareros` (`id`, `nombre`, `contraseña`, `dni`, `foto`, `encargado`) VALUES
+(1, 'Admin', 'admin', '11111111E', '11111111E.jpg', 1),
+(2, 'maricon', 'gay', '2222222G', '2222222G.jpg', 0),
+(3, 'Rosa Melano', 'rosa', '33333333A', 'rosa.jpg', 0),
+(6, 'Pedro', 'redy', '48748246E', '48748246E.jpg', 0);

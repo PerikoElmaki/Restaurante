@@ -1,6 +1,7 @@
 {
     "require": {
         "composer/composer": "^2.8",
-        "mike42/escpos-php": "^2.2"
+        "mike42/escpos-php": "^2.2",
+        "setasign/fpdf": "^1.8"
     }
 }
