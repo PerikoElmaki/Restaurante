@@ -29,7 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Crear el pedido en la base de datos
-        $sqlPedido = "INSERT INTO pedidos (mesa, total, pagado, fecha) VALUES ('$mesaId', '$total', 0, NOW())";
+        
+        $fechaActual = date('Y-m-d H:i:s');
+        $fecha = date('Y-m-d', strtotime($fechaActual));
+        $hora = date('H:i:s', strtotime($fechaActual));
+
+        $sqlPedido = "INSERT INTO pedidos (mesa, total, pagado, fecha, hora) VALUES ('$mesaId', '$total', 0, '$fecha', '$hora')";
+        
         if ($conn->query($sqlPedido) === TRUE) {
             $pedidoId = $conn->insert_id; // Obtener el ID del pedido recién creado
 

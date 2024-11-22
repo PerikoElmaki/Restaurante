@@ -1,8 +1,11 @@
 <?php
-$servidor = "localhost";
-$user = "root";
-$clave = "";
-$bd = "restaurante";
+// $servidor = "localhost";
+$servidor = "mysql.hostinger.com";
+$user="u457699827_root";
+// $user = "root";
+// $clave = "";
+$clave = "Informaticoredy8";
+$bd = "u457699827_restaurante";
 
 $conn = mysqli_connect($servidor, $user, $clave);
 

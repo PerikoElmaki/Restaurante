@@ -9,12 +9,12 @@ if ($mesaId === null) {
 
 
 // Obtener el ID del pedido asociado a la mesa y la fecha
-$consultaPedido = "SELECT id, fecha FROM pedidos WHERE mesa = '$mesaId'"; // Asegúrate de que el estado del pedido es 0 (activo)
+$consultaPedido = "SELECT id, hora FROM pedidos WHERE mesa = '$mesaId'"; // Asegúrate de que el estado del pedido es 0 (activo)
 $resultadoPedido = mysqli_query($conn, $consultaPedido);
 if ($resultadoPedido && mysqli_num_rows($resultadoPedido) > 0) {
     $filaPedido = mysqli_fetch_assoc($resultadoPedido);
     $pedidoId = $filaPedido['id'];
-    $fechaPedido = $filaPedido['fecha'];
+    $horaPedido = $filaPedido['hora'];
 } else {
     die("Error: No se encontró un pedido activo para esta mesa.");
 }
@@ -77,7 +77,7 @@ if ($resultadoPrecios && mysqli_num_rows($resultadoPrecios) > 0) {
             <div class="container">
                 <div class="row justify-content-start mt-1 ">
 
-                    <h2 class="col-9 mt-1">Artículos del Pedido : <?php echo date('H:i', strtotime($fechaPedido)); ?></h2>
+                    <h2 class="col-9 mt-1">Artículos del Pedido : <?php echo date('H:i', strtotime($horaPedido)); ?></h2>
                     <?php
                     echo "<a href='ticketCocina.php?pedidoId=$pedidoId&mesaId=$mesaId' class='col-3 col-md-2 btn btn-secondary'><i class='bi bi-printer'></i> <br>Ticket cocina</a>";
                     ?>

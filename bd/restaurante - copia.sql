@@ -20,8 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `restaurante`
 --
-CREATE DATABASE IF NOT EXISTS `restaurante` DEFAULT CHARACTER SET utf8;
-USE `restaurante`;
+
+USE `u457699827_restaurante`;
 
 -- --------------------------------------------------------
 
