@@ -47,8 +47,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (!$conn->query($sqlLineaPedido)) {
                     echo "Error: " . $sqlLineaPedido . "<br>" . $conn->error;
                 }
+
+
             }
 
+            // Actualizar el stock de los productos
+            foreach ($productosSeleccionados as $idProducto) {
+                $cantidad = $cantidades[$idProducto];
+                $sqlActualizarStock = "UPDATE productos SET stock = stock - $cantidad WHERE id = '$idProducto'";
+                if (!$conn->query($sqlActualizarStock)) {
+                    echo "Error al actualizar el stock del producto: " . $sqlActualizarStock . "<br>" . $conn->error;
+                }
+            }
+            
 
             // Actualizar el estado de la mesa a 1 (ocupada)
             $sqlActualizarMesa = "UPDATE mesas SET estado = 1 WHERE codigo = '$mesaId'";
@@ -68,6 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "No se han recibido productos seleccionados, cantidades o comentarios.";
     }
 }
+
 
 // Vaciar la tabla lineas_carrito
 $sqlVaciarCarrito = "TRUNCATE TABLE lineas_carrito";

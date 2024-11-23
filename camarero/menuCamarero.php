@@ -38,7 +38,7 @@ include "../sesion.php";
     <section class="container">
         <div class="row justify-content-center">
 
-            <div class="cartas card col-7 col-md-3 mb-4 me-3 bg-dark ">
+            <div class="cartas card col-7 col-md-3 mb-4 me-3 bg-dark border-white ">
                 <div class="card-body">
                     <a href="salon.php" class="btn stretched-link text-white">
                         <h5 class="card-title">Acceder al salón</h5>

@@ -86,12 +86,19 @@ include "../conexion.php";
                                     break;
                             }
 
+                           
 
                             echo "<tr class='$clase'>";
                             echo "<td class='tdProductos'>$nombre</td>";
                             echo "<td class='tdProductos'>$categ</td>";
                             echo "<td class='tdProductos'>$precio $</td>";
-                            echo "<td class='tdProductos'>$stock unidades</td>";
+                            if ($stock < 10 && $stock > 1) {
+                                echo "<td class='tdProductos'><p class='stockpeligro'>$stock unidades</p></td>";
+                            }else if($stock == 0){
+                                echo "<td class='tdProductos'><p class='stockpeligro'>SIN STOCK</p></td>";
+                            }else{
+                                echo "<td class='tdProductos'>$stock unidades</td>";
+                            }
                             echo "</tr>";
                         }
                         ?>

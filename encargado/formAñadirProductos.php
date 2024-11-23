@@ -35,19 +35,35 @@ include "../conexion.php";
             ?>
         </div>
     </nav>
-    <section>
-        <div>
-            <h3>Añadir Producto</h3>
-            <form action="añadirProductos.php" method="post">
-                <input type="text" name="nombre" id="nombre" placeholder="Nombre del Producto" required>
-                <select name="categoria" id="categoria">
-                    <option value="pizzas" selected>Pizzas</option>
-                    <option value="bocatas">Bocatas</option>
-                    <option value="entrantes">Entrantes</option>
-                </select>
-                <input type="number" name="precio" id="precio" placeholder="Precio" required>
-                <input type="number" name="stock" id="stock" placeholder="Stock" required>
-                <input type="submit">
+    <section class="container">
+        
+        <div class="row justify-content-center">
+            <form action="añadirProductos.php" method="post" class="row justify-content-center">
+                <h3>Añadir Producto</h3>
+                <div class="col-10 form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="" required>
+                    <label for="nombre">Nombre del producto</label>
+                </div>
+                <div class="col-10 form-floating">
+                    <select name="categoria" class="form-select" id="categoria">
+                        <option value="Pizza" selected>Pizzas</option>
+                        <option value="Pasta">Pasta</option>
+                        <option value="Entrante">Entrantes</option>
+                        <option value="Ensalada">Ensalada</option>
+                        <option value="Postre">Postre</option>
+                    </select>
+                </div>
+                <div class="col-5 form-floating mb-3 mt-3">
+                    <input type="number" class="form-control" name="precio" id="precio" placeholder="" required>
+                    <label for="precio">Precio</label>
+                </div>
+                <div class="col-5 form-floating mb-3 mt-3">
+                    <input type="number" class="form-control" name="stock" id="stock" placeholder="" required>
+                    <label for="stock">Stock</label>
+                </div>
+                <div class="d-grid col-6 mt-3">
+                    <input type="submit" class="btn btn-dark">
+                </div>
             </form>
         </div>
     </section>

@@ -152,10 +152,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             break;
                                     }
 
-                                    echo "<div class='d-grid col-6 col-sm-6 col-md-4 col-lg-3 mb-1'>";
-                                    echo "<input type='checkbox' name='productosSeleccionados[]' id='$nombre' class='btn-check' value='$id'>";
-                                    echo "<label for='$nombre' class='$clase'>$nombre</label>";
-                                    echo "</div>";
+                                    if ($stock < 10 && $stock > 1) {
+                                        echo "<div class='d-grid col-6 col-sm-6 col-md-4 col-lg-3 mb-1'>";
+                                        echo "<input type='checkbox' name='productosSeleccionados[]' id='$nombre' class='btn-check' value='$id'>";
+                                        echo "<label for='$nombre' class='$clase'>$nombre <br>(consultar stock)</label>";
+                                        echo "</div>";
+                                    } else if ($stock == 0) {
+                                        echo "<div class='d-grid col-6 col-sm-6 col-md-4 col-lg-3 mb-1'>";
+                                        echo "<input type='checkbox' name='productosSeleccionados[]' id='$nombre' class='btn-check' value='$id' disabled>";
+                                        echo "<label for='$nombre' class='$clase'>$nombre <br>SIN STOCK</label>";
+                                        echo "</div>";
+                                    } else {
+                                        echo "<div class='d-grid col-6 col-sm-6 col-md-4 col-lg-3 mb-1'>";
+                                        echo "<input type='checkbox' name='productosSeleccionados[]' id='$nombre' class='btn-check' value='$id'>";
+                                        echo "<label for='$nombre' class='$clase'>$nombre</label>";
+                                        echo "</div>";
+                                    }
+                                    // echo "<div class='d-grid col-6 col-sm-6 col-md-4 col-lg-3 mb-1'>";
+                                    // echo "<input type='checkbox' name='productosSeleccionados[]' id='$nombre' class='btn-check' value='$id'>";
+                                    // echo "<label for='$nombre' class='$clase'>$nombre</label>";
+                                    // echo "</div>";
                                 }
                             }
                             // Reset the result pointer to the beginning

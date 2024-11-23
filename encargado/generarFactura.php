@@ -7,13 +7,38 @@ require('../vendor/setasign/fpdf/fpdf.php'); // Asegúrate de que la ruta es cor
 
 
 if (isset($_POST['fecha'])) {
+    // Consulta de productos de esa fecha
     $fecha = $_POST['fecha'];
     $fecha = date('Y-m-d', strtotime($fecha));
     $consulta = "SELECT * FROM pedidos WHERE fecha = '$fecha'";
 
     $resultado = mysqli_query($conn, $consulta);
 
-    
+    // COnsulta del total de todos los productos del dia
+    $totalProductosVendidos = 0;
+    $consultaLineas = "SELECT SUM(cant) as totalCantidad FROM lineas_pedidos WHERE pedido IN (SELECT id FROM pedidos WHERE fecha = '$fecha')";
+    $resultadoLineas = mysqli_query($conn, $consultaLineas);
+    $filaLineas = mysqli_fetch_array($resultadoLineas);
+    $totalProductosVendidos = $filaLineas['totalCantidad'];
+
+    // Consulta del producto más vendido del día
+    $consultaProductoMasVendido = "SELECT producto, SUM(cant) as totalCantidad FROM lineas_pedidos WHERE pedido IN (SELECT id FROM pedidos WHERE fecha = '$fecha') GROUP BY producto ORDER BY totalCantidad DESC LIMIT 1";
+    $resultadoProductoMasVendido = mysqli_query($conn, $consultaProductoMasVendido);
+    $filaProductoMasVendido = mysqli_fetch_array($resultadoProductoMasVendido);
+    $productoMasVendidoId = $filaProductoMasVendido['producto'];
+    $totalCantidadProductoMasVendido = $filaProductoMasVendido['totalCantidad'];
+
+    $consultaNombreProducto = "SELECT nombre FROM productos WHERE id = '$productoMasVendidoId'";
+    $resultadoNombreProducto = mysqli_query($conn, $consultaNombreProducto);
+    $filaNombreProducto = mysqli_fetch_array($resultadoNombreProducto);
+    $nombreProductoMasVendido = $filaNombreProducto['nombre'];
+
+
+    mysqli_data_seek($resultado, 0); // Reiniciar el puntero del resultado
+
+
+
+
 
     // Crear una instancia de FPDF
     $pdf = new FPDF();
@@ -21,6 +46,7 @@ if (isset($_POST['fecha'])) {
     $pdf->SetFont('Arial', 'B', 12);
 
     // Título
+    
     $pdf->Cell(0, 10, 'NAM NAM Rubio Lujan ', 0, 1, 'C');
     $pdf->Cell(0, 10, 'Pedidos del dia ' . $fecha, 0, 1, 'C');
 
@@ -54,11 +80,29 @@ if (isset($_POST['fecha'])) {
         $totalIngresos += $fila['total'];
     }
 
+    // Calcular la media de total de cuentas
+    $numeroPedidos = mysqli_num_rows($resultado);
+    $mediaTotalCuentas = $numeroPedidos > 0 ? $totalIngresos / $numeroPedidos : 0;
+
+    // Mostrar la media de total de cuentas
+    $pdf->Ln(5);
+    $pdf->Cell(0, 10, 'Media de cuentas: ' . number_format($mediaTotalCuentas, 2) . ' EUR', 0, 1, 'C');
     // Mostrar el total de ingresos
-    $pdf->Ln(10);
-  
-    
+    $pdf->Cell(0, 10, 'Producto + vendido: ' . $nombreProductoMasVendido, 0, 1, 'C');
+    $pdf->Ln(5);
+
+    $pdf->Ln(5);
+    $pdf->SetFont('Arial','B',16);
+    $pdf->Cell(0, 10, 'Productos vendidos: ' . $totalProductosVendidos . ' unidades', 0, 1, 'C');
     $pdf->Cell(0, 10,'Total de ingresos del dia: ' . $totalIngresos . ' EUR', 0, 1, 'C');
+
+
+   
+  
+
+
+
+
     $conn->close();
 
     // Salida del PDF

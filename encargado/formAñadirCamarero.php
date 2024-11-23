@@ -35,17 +35,34 @@ include "../conexion.php";
             ?>
         </div>
     </nav>
-    <section>
-        <div>
-            <h3>Añadir camarero</h3>
-            <form action="añadirCamarero.php" method="post">
-                <input type="text" name="nombre" id="nombre" placeholder="Nombre del camarero" required>
-                <input type="password" name="contraseña" id="contraseña" placeholder="Contraseña" required>
-                <input type="text" name="dni" id="dni" placeholder="DNI" required>
-                <input type="file" name="foto" id="foto" placeholder="foto" required>
-                <input type="checkbox" name="encargado" id="encargado" value="0">
-                <label for="encargado">¿Es encargado?</label>
-                <input type="submit">
+  
+    <section class="container">
+
+        <div class="row justify-content-center">
+            <form action="añadirCamarero.php" method="post" class="row justify-content-center">
+                <h3>Añadir Camarero</h3>
+                <div class="col-10 form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="" required>
+                    <label for="nombre">Nombre del camarero</label>
+                </div>
+                <div class="col-10 form-floating">
+                    <input type="password" class="form-control" name="contraseña" id="contraseña" placeholder="" required>
+                    <label for="contraseña">Contraseña</label>
+                </div>
+                <div class="col-10 form-floating mb-3 mt-3">
+                    <input type="text" class="form-control" name="dni" id="dni" placeholder="" required>
+                    <label for="dni">DNI</label>
+                </div>
+                <div class="col-5 form-floating mb-3 mt-3">
+                    <input type="file" class="form-control" name="foto" id="foto" placeholder="" required>
+                </div>
+                <div class="col-5 form-check form-switch mb-3 mt-3 ms-3">
+                    <input type="checkbox" class="form-check-input" name="encargado" id="encargado" value="0">
+                    <label for="encargado" class="form-check-label">¿Es encargado?</label>
+                </div>
+                <div class="d-grid col-6 mt-3">
+                    <input type="submit" class="btn btn-dark">
+                </div>
             </form>
         </div>
     </section>

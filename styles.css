@@ -93,6 +93,7 @@ section{
 }
 
 
+
 /* Añadir camarero form */
 form #foto{
     margin: 0 auto;
@@ -113,13 +114,20 @@ form #foto{
 }
 
 /* Productos */
-.tdProductos {
+.tdProductos{
     align-content: center;
     text-align: start;
     /* font-size: 1.2em; */
     font-family: Arial, Helvetica, sans-serif;
+    
 }
-
+/* Listar productos  */
+.stockpeligro {
+    font-style: italic;
+    font-weight: bold;
+    color: red;
+    align-content: center;
+}
 
 /* hovers */
 .cartas{
