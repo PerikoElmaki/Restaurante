@@ -35,9 +35,9 @@ include "../conexion.php";
         </div>
     </nav>
     <section class="container">
-        <div class="content row">
-            <div class="col ">
-                <table class="table table-striped">
+        <div class="row">
+            <!-- <div class="col"> -->
+                <table class="table table-stripped">
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
@@ -45,6 +45,7 @@ include "../conexion.php";
                         <th>DNI</th>
                         <th>Foto</th>
                         <th class="text-start">¿Encargado?</th>
+                        <th>Opciones</th>
                     </tr>
                     <?php
                     $consulta = "SELECT * FROM camareros";
@@ -79,18 +80,18 @@ include "../conexion.php";
                         echo "<td class='tdPedidos'>$contra</td>";
                         echo "<td class='tdPedidos'>$dni</td>";
                         echo "<td class='fotoCam'><img width='40px' src='images/" . $fotoEnlace . "'></td>";
-                        echo "<td class='tdPedidos'>$esEncargado ";
-                        echo "<a href='eliminarCamarero.php?id=$id' class='ms-3 btn btn-danger'><i class='bi bi-trash'></i></a>";
+                        echo "<td class='tdPedidos'>$esEncargado</td>";
                         if ($suspendido == 1) {
-                            echo "<a href='modificarCamarero.php?id=$id&susp=$suspendido' class='ms-3 btn btn-success'><i class='bi bi-toggle-on'></i></a>";
+                            echo "<td class='tdPedidos'><a href='modificarCamarero.php?id=$id&susp=$suspendido' class='btn btn-success'><i class='bi bi-toggle-on'></i></a>";
                         } else {
-                            echo "<a href='modificarCamarero.php?id=$id&susp=$suspendido' class='ms-3 btn btn-warning'><i class='bi bi-toggle-off'></i></a>";
+                            echo "<td class='tdPedidos'><a href='modificarCamarero.php?id=$id&susp=$suspendido' class='btn btn-warning'><i class='bi bi-toggle-off'></i></a>";
                         }
-                        echo "</td></tr>";
+                        echo "<a href='eliminarCamarero.php?id=$id' class='ms-1 btn btn-danger'><i class='bi bi-trash'></i></a></td>";
+                        echo "</tr>";
                     }
                     ?>
                 </table>
-            </div>
+            <!-- </div> -->
         </div>
 
     </section>
