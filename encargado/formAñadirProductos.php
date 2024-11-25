@@ -51,6 +51,7 @@ include "../conexion.php";
                         <option value="Entrante">Entrantes</option>
                         <option value="Ensalada">Ensalada</option>
                         <option value="Postre">Postre</option>
+                        <option value="bebidas">Bebidas</option>
                     </select>
                 </div>
                 <div class="col-5 form-floating mb-3 mt-3">

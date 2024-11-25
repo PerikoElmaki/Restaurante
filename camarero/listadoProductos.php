@@ -92,7 +92,7 @@ include "../conexion.php";
                             echo "<td class='tdProductos'>$nombre</td>";
                             echo "<td class='tdProductos'>$categ</td>";
                             echo "<td class='tdProductos'>$precio $</td>";
-                            if ($stock < 10 && $stock > 1) {
+                            if ($stock <= 10 && $stock > 1) {
                                 echo "<td class='tdProductos'><p class='stockpeligro'>$stock unidades</p></td>";
                             }else if($stock == 0){
                                 echo "<td class='tdProductos'><p class='stockpeligro'>SIN STOCK</p></td>";
