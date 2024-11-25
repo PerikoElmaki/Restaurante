@@ -36,8 +36,22 @@ include "../conexion.php";
     </nav>
     <section>
         <section>
-            <div>
-                <h3>Listado de Productos</h3>
+            <div class="row justify-content-start">
+                <h3 class="col-8">Listado de Productos</h3>
+                <form action="listadoProductos.php" method="post" class="col-2">
+                    <button type="submit" name="update_stock" class="btn btn-warning">Restablecer stock</button>
+                </form>
+                <?php
+                if (isset($_POST['update_stock'])) {
+                    // Actualizar el stock de todos los productos a 100
+                    $updateQuery = "UPDATE productos SET stock = 100";
+                    if (mysqli_query($conn, $updateQuery)) {
+                        echo "<div class='alert alert-success'>Stock actualizado a 100 para todos los productos.</div>";
+                    } else {
+                        echo "<div class='alert alert-danger'>Error al actualizar el stock: " . mysqli_error($conn) . "</div>";
+                    }
+                }
+                ?>
             </div>
             <div class="container">
                 <div class="row">
@@ -48,9 +62,11 @@ include "../conexion.php";
                                 <th class="text-start">Categoría</th>
                                 <th class="text-start">Precio </th>
                                 <th class="text-start">Stock</th>
+                               
                             </tr>
                         </thead>
                         <tbody>
+
                             <?php
                             $consulta = "SELECT * FROM productos";
 
@@ -87,11 +103,11 @@ include "../conexion.php";
                                 }
 
 
-                                echo "<tr class='$clase'>";
+                                echo "<tr class='$clase col-12'>";
                                 echo "<td class='tdProductos'>$nombre</td>";
                                 echo "<td class='tdProductos'>$categ</td>";
                                 echo "<td class='tdProductos'>$precio $</td>";
-                                echo "<td class='tdProductos'>$stock unidades</td>";
+                                echo "<td class='tdProductos'>$stock U <a href='eliminarProducto.php?id=$id' class='ms-3 btn btn-danger'><i class='bi bi-trash'></i></a></td>";
                                 echo "</tr>";
                             }
                             ?>
