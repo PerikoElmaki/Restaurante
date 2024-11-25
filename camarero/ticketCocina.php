@@ -37,14 +37,13 @@ $result = $stmt->get_result();
 
 $items = [];
 while ($row = $result->fetch_assoc()) {
-    // Comprobar si la categoría es 'bebidas' o postres, para no imprimir
-    // if ($row['categoria'] !== 'bebidas' && $row['categoria'] !== 'Postre'  ) {
+    
         $items[] = [
             "descripcion" => $row['descripcion'],
             "cantidad" => $row['cantidad'],
             "comentario" => $row['comentario']
         ];
-    // }
+    
 }
 
 $stmt->close();
