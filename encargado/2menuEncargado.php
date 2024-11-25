@@ -35,8 +35,10 @@ include "../conexion.php";
             ?>
         </div>
     </nav>
+
     <div class="container d-flex justify-content-center align-items-center">
         <section class="container">
+
             <div class="row justify-content-center text-center g-5">
                 <!-- Estadísticas -->
                 <style>
@@ -44,6 +46,9 @@ include "../conexion.php";
                         height: 30vh;
                     }
                 </style>
+                <div class="col-4 text-center">
+                    <a href="../camarero/salon.php" class="btn btn-warning">Vista de camarero</a>
+                </div>
 
                 <!-- Informes de Ventas -->
                 <!-- <div class="col-12 col-md-6 mt-4 "> -->

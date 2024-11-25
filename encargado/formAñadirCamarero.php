@@ -57,7 +57,7 @@ include "../conexion.php";
                     <input type="file" class="form-control" name="foto" id="foto" placeholder="" required>
                 </div>
                 <div class="col-5 form-check form-switch mb-3 mt-3 ms-3">
-                    <input type="checkbox" class="form-check-input" name="encargado" id="encargado" value="0">
+                    <input type="checkbox" class="form-check-input" name="encargado" id="encargado" value="1">
                     <label for="encargado" class="form-check-label">¿Es encargado?</label>
                 </div>
                 <div class="d-grid col-6 mt-3">

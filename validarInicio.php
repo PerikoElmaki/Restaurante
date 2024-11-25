@@ -17,12 +17,19 @@ if (mysqli_num_rows($resultado) == 1) {
     $_SESSION['nombre'] = $fila['nombre'];
     $_SESSION['contraseña'] = $fila['contraseña'];
     $_SESSION['encargado'] = $fila['encargado'];
+    $_SESSION['suspendido']= $fila['suspendido'];
 
-    if($fila['encargado'] == 1){
-        header("LOCATION:encargado/2menuEncargado.php");
-    }elseif ($fila['encargado'] == 0){
-        header("LOCATION:camarero/menuCamarero.php");
+    if($fila['suspendido'] == 1){
+        header("LOCATION:aviso.php");
+    }else{
+        if ($fila['encargado'] == 1) {
+            header("LOCATION:encargado/2menuEncargado.php");
+        } elseif ($fila['encargado'] == 0) {
+            header("LOCATION:camarero/menuCamarero.php");
+        }
     }
+
+    
     
 }else{
     header("LOCATION:index.php");

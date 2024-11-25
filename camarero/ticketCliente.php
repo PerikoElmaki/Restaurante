@@ -51,7 +51,7 @@ try {
     $printer->feed(1);
     $printer->setEmphasis(true);
     $printer->setTextSize(2, 2);
-    $printer->text("RESTAURANTE IL BRESCIANO\n");
+    $printer->text("RESTAURANTE NAM NAM\n");
     $printer->setTextSize(1, 1);
     $printer->feed(1);
 

@@ -44,7 +44,7 @@ include "../conexion.php";
                         <th>Contraseña</th>
                         <th>DNI</th>
                         <th>Foto</th>
-                        <th>¿Encargado?</th>
+                        <th class="text-start">¿Encargado?</th>
                     </tr>
                     <?php
                     $consulta = "SELECT * FROM camareros";
@@ -52,7 +52,7 @@ include "../conexion.php";
                     $resultado = mysqli_query($conn, $consulta);
 
                     while ($fila = mysqli_fetch_array($resultado)) {
-
+                        $enlaceBorrar = "";
                         $id = $fila['id'];
                         $nombre = $fila['nombre'];
                         $contra = $fila['contraseña'];
@@ -60,19 +60,33 @@ include "../conexion.php";
                         // Cambiar esto en base de datos
                         $fotoEnlace = $fila['foto'];
                         $encargadoNum = $fila['encargado'];
+                        $suspendido = $fila['suspendido'];
 
                         $esEncargado = 'No';
+
                         if ($encargadoNum == 1) {
                             $esEncargado = 'Si';
                         }
-                        echo "<tr>";
+                        if ($suspendido == 1) {
+                            $clase = 'table-danger';
+                        } else {
+                            $clase = 'table-success';
+                        }
+
+                        echo "<tr class='$clase'>";
                         echo "<td class='tdPedidos'>$id</td>";
                         echo "<td class='tdPedidos'>$nombre</td>";
                         echo "<td class='tdPedidos'>$contra</td>";
                         echo "<td class='tdPedidos'>$dni</td>";
                         echo "<td class='fotoCam'><img width='40px' src='images/" . $fotoEnlace . "'></td>";
-                        echo "<td class='tdPedidos'>$esEncargado</td>";
-                        echo "</tr>";
+                        echo "<td class='tdPedidos'>$esEncargado ";
+                        echo "<a href='eliminarCamarero.php?id=$id' class='ms-3 btn btn-danger'><i class='bi bi-trash'></i></a>";
+                        if ($suspendido == 1) {
+                            echo "<a href='modificarCamarero.php?id=$id&susp=$suspendido' class='ms-3 btn btn-success'><i class='bi bi-toggle-on'></i></a>";
+                        } else {
+                            echo "<a href='modificarCamarero.php?id=$id&susp=$suspendido' class='ms-3 btn btn-warning'><i class='bi bi-toggle-off'></i></a>";
+                        }
+                        echo "</td></tr>";
                     }
                     ?>
                 </table>

@@ -38,6 +38,16 @@ if ($resultadoPrecios && mysqli_num_rows($resultadoPrecios) > 0) {
     }
 }
 
+// Comprobar si el camarero es encargado
+$nombre = $_SESSION['nombre'];
+$consultaEncargado = "SELECT encargado FROM camareros WHERE nombre = '$nombre'";
+$resultadoEncargado = mysqli_query($conn, $consultaEncargado);
+if ($resultadoEncargado && mysqli_num_rows($resultadoEncargado) > 0) {
+    $filaEncargado = mysqli_fetch_assoc($resultadoEncargado);
+    $esEncargado = $filaEncargado['encargado'];
+} else {
+    $esEncargado = 0; // Asumimos que no es encargado si no se encuentra en la base de datos
+}
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +77,6 @@ if ($resultadoPrecios && mysqli_num_rows($resultadoPrecios) > 0) {
             <?php
             $mesaId = $_GET['mesaId'];
             echo "<h3>Mesa $mesaId</h3>";
-            $nombre = $_SESSION['nombre'];
             echo "<h5>Camarero: $nombre</h5>";
             ?>
         </div>
@@ -129,8 +138,11 @@ if ($resultadoPrecios && mysqli_num_rows($resultadoPrecios) > 0) {
                         echo "<td class='tdPedidos'>$nombreProducto</td>";
                         echo "<td class='tdPedidos'>$cantidad</td>";
                         echo "<td class='tdPedidos'>$precio</td>";
-                        echo "<td class='tdPedidos'>$comentario</td>";
-                        echo "</tr>";
+                        echo "<td class='tdPedidos'>$comentario";
+                        if($esEncargado == 1){
+                            echo "<a href='eliminarLinea.php?pedidoId=$pedidoId&nombreProd=$nombreProducto' class='ms-3 btn btn-danger'><i class='bi bi-trash'></i></a>";
+                        }
+                        echo "</td></tr>";
                     }
                     echo "</tbody>";
                     echo "</table>";

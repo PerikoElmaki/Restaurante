@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor:  127.0.0.1:3306
--- Tiempo de generación: 22-11-2024 a las 17:08:41
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 25-11-2024 a las 19:48:24
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -15,13 +15,13 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de datos: `restaurante`
 --
-
-USE `u457699827_restaurante`;
+CREATE DATABASE IF NOT EXISTS `restaurante` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `restaurante`;
 
 -- --------------------------------------------------------
 
@@ -35,18 +35,19 @@ CREATE TABLE `camareros` (
   `contraseña` varchar(50) NOT NULL,
   `dni` varchar(50) NOT NULL,
   `foto` varchar(50) NOT NULL,
-  `encargado` int(10) NOT NULL DEFAULT 0
+  `encargado` int(10) NOT NULL DEFAULT 0,
+  `suspendido` int(2) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `camareros`
 --
 
-INSERT INTO `camareros` (`id`, `nombre`, `contraseña`, `dni`, `foto`, `encargado`) VALUES
-(1, 'admin', 'admin', '11111111E', '11111111E.jpg', 1),
-(2, 'maricon', 'gay', '2222222G', '2222222G.jpg', 0),
-(3, 'Rosa Melano', 'rosa', '33333333A', 'rosa.jpg', 0),
-(6, 'Pedro', 'redy', '48748246E', '48748246E.jpg', 0);
+INSERT INTO `camareros` (`id`, `nombre`, `contraseña`, `dni`, `foto`, `encargado`, `suspendido`) VALUES
+(1, 'admin', 'admin', '11111111E', '11111111E.jpg', 1, 0),
+(3, 'Rosa Melano', 'rosa', '33333333A', 'rosa.jpg', 0, 1),
+(6, 'Pedro', 'redy', '48748246E', '48748246E.jpg', 0, 1),
+(8, 'Fernando', 'maker', '46789823F', '46789823F.jpg', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -80,9 +81,6 @@ CREATE TABLE `lineas_pedidos` (
 INSERT INTO `lineas_pedidos` (`id`, `pedido`, `producto`, `cant`, `comentario`) VALUES
 (3, 2, 20, 1, ''),
 (4, 2, 23, 1, ''),
-(5, 2, 24, 1, ''),
-(6, 3, 20, 1, ''),
-(7, 3, 24, 1, ''),
 (8, 4, 1, 1, ''),
 (9, 4, 6, 1, ''),
 (10, 4, 7, 1, ''),
@@ -113,15 +111,28 @@ INSERT INTO `lineas_pedidos` (`id`, `pedido`, `producto`, `cant`, `comentario`) 
 (35, 7, 23, 2, ''),
 (36, 7, 24, 2, ''),
 (37, 7, 25, 1, ''),
-(38, 8, 20, 1, ''),
-(39, 8, 23, 1, ''),
-(40, 8, 24, 1, ''),
 (41, 9, 2, 2, 'si hielo'),
 (42, 9, 7, 1, ''),
 (43, 9, 10, 1, ''),
 (44, 9, 24, 2, ''),
 (45, 9, 27, 1, ''),
-(46, 9, 31, 1, '');
+(46, 9, 31, 1, ''),
+(47, 10, 9, 3, ''),
+(48, 10, 13, 1, ''),
+(49, 11, 19, 2, ''),
+(50, 11, 20, 2, ''),
+(51, 12, 4, 5, ''),
+(54, 13, 5, 1, ''),
+(58, 14, 16, 1, ''),
+(59, 14, 17, 1, ''),
+(60, 14, 34, 1, ''),
+(61, 14, 35, 1, ''),
+(62, 14, 1, 1, ''),
+(63, 14, 6, 1, ''),
+(64, 14, 9, 1, ''),
+(65, 14, 14, 1, ''),
+(66, 14, 26, 1, 'olivas'),
+(67, 14, 31, 1, 'extra guanciale');
 
 -- --------------------------------------------------------
 
@@ -139,15 +150,15 @@ CREATE TABLE `mesas` (
 --
 
 INSERT INTO `mesas` (`codigo`, `estado`) VALUES
-('1', 1),
+('1', 0),
 ('2', 0),
 ('3', 0),
-('4', 1),
+('4', 0),
 ('5', 0),
-('6', 1),
-('7', 1),
-('8', 0),
-('9', 0);
+('6', 0),
+('7', 0),
+('8', 1),
+('9', 1);
 
 -- --------------------------------------------------------
 
@@ -169,14 +180,19 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`id`, `mesa`, `total`, `pagado`, `fecha`, `hora`) VALUES
-(2, '5', 35.5, 0, '2024-11-22', '16:56:02'),
-(3, '6', 26.5, 0, '2024-11-22', '16:57:19'),
-(4, '1', 102.9, 0, '2024-11-22', '17:06:08'),
+(2, NULL, 35.5, 1, '2024-11-22', '16:56:02'),
+(3, NULL, 26.5, 1, '2024-11-22', '16:57:19'),
+(4, NULL, 102.9, 1, '2024-11-22', '17:06:08'),
 (5, NULL, 120.9, 1, '2024-11-22', '17:06:19'),
 (6, NULL, 119, 1, '2024-11-22', '17:06:28'),
 (7, '6', 94.5, 0, '2024-11-22', '17:06:36'),
-(8, '7', 35.5, 0, '2024-11-22', '17:06:42'),
-(9, '4', 71.7, 0, '2024-11-22', '17:07:17');
+(8, NULL, 35.5, 1, '2024-11-22', '17:06:42'),
+(9, NULL, 71.7, 1, '2024-11-22', '17:07:17'),
+(10, NULL, 50.6, 1, '2024-11-23', '11:21:33'),
+(11, NULL, 53, 1, '2024-11-23', '11:23:00'),
+(12, '5', 10, 0, '2024-11-23', '11:23:16'),
+(13, '8', 640, 0, '2024-11-23', '11:39:51'),
+(14, '9', 74.2, 0, '2024-11-25', '19:27:36');
 
 -- --------------------------------------------------------
 
@@ -197,44 +213,45 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `categoria`, `precio`, `stock`) VALUES
-(1, 'Acqua Naturale', 'bebidas', 1.5, 100),
+(1, 'Acqua Naturale', 'bebidas', 1.5, 99),
 (2, 'Acqua frizzante', 'bebidas', 1.5, 100),
 (3, 'Coca Cola', 'bebidas', 2, 100),
-(4, 'Fanta Arancia', 'bebidas', 2, 100),
-(5, 'Moretti bottiglia', 'bebidas', 2.5, 100),
-(6, 'Piccola birra', 'bebidas', 1.5, 100),
+(4, 'Fanta Arancia', 'bebidas', 2, 0),
+(5, 'Moretti bottiglia', 'bebidas', 2.5, 7),
+(6, 'Piccola birra', 'bebidas', 1.5, 99),
 (7, 'Bicchiere di Vino Rosso', 'bebidas', 3.5, 50),
 (8, 'Bicchiere di Vino Bianco', 'bebidas', 3.5, 50),
-(9, 'Speck', 'Entrante', 10.2, 50),
+(9, 'Speck', 'Entrante', 10.2, 48),
 (10, 'Tagliere di formaggi', 'Entrante', 14.2, 50),
 (11, 'Focaccia', 'Entrante', 7, 50),
 (12, 'Provolone', 'Entrante', 8.5, 50),
-(13, 'Affettati misti', 'Entrante', 20, 50),
-(14, 'Pane all aglio', 'Entrante', 3.5, 50),
-(15, 'Insalata César', 'Ensalada', 9.5, 50),
-(16, 'Insalata Caprese', 'Ensalada', 8, 50),
-(17, 'Insalata di burrata', 'Ensalada', 12, 50),
+(13, 'Affettati misti', 'Entrante', 20, 49),
+(14, 'Pane all aglio', 'Entrante', 3.5, 49),
+(15, 'Insalata César', 'Ensalada', 9.5, 49),
+(16, 'Insalata Caprese', 'Ensalada', 8, 48),
+(17, 'Insalata di burrata', 'Ensalada', 12, 49),
 (18, 'Insalata di Rucola', 'Ensalada', 7, 50),
-(19, 'Spaghetti Carbonara', 'Pasta', 9.5, 50),
-(20, 'Lasagna', 'Pasta', 17, 50),
+(19, 'Spaghetti Carbonara', 'Pasta', 9.5, 48),
+(20, 'Lasagna', 'Pasta', 17, 48),
 (21, 'Rigatoni', 'Pasta', 12, 50),
 (22, 'Tagliatelle Puttanesca', 'Pasta', 14, 50),
 (23, 'Ravioli agli Spinaci', 'Pasta', 9, 50),
 (24, 'Fettuccine Alfredo', 'Pasta', 9.5, 50),
 (25, 'Paccheri pistacchio', 'Pasta', 16.5, 50),
-(26, 'Margherita', 'Pizza', 8, 50),
+(26, 'Margherita', 'Pizza', 8, 48),
 (27, 'Pepperoni', 'Pizza', 12, 50),
 (28, 'Zucca speck', 'Pizza', 17.5, 50),
 (29, 'P. Al tartufo', 'Pizza', 14.5, 50),
-(30, 'Quattro Formaggi', 'Pizza', 14.5, 50),
-(31, 'Carbonara', 'Pizza', 20, 50),
+(30, 'Quattro Formaggi', 'Pizza', 14.5, 9),
+(31, 'Carbonara', 'Pizza', 20, 49),
 (32, 'Vegetariana', 'Pizza', 10.5, 50),
-(33, 'Funghi Porcini', 'Pizza', 17.5, 50),
-(34, 'Tiramisù', 'Postre', 5, 50),
-(35, 'Panna Cotta', 'Postre', 4.5, 50),
+(33, 'Funghi Porcini', 'Pizza', 17.5, 49),
+(34, 'Tiramisù', 'Postre', 5, 49),
+(35, 'Panna Cotta', 'Postre', 4.5, 49),
 (36, 'Gelato', 'Postre', 4, 50),
 (37, 'Cannoli', 'Postre', 4.5, 50),
-(38, 'Torta al Limone', 'Postre', 5, 50);
+(38, 'Torta al Limone', 'Postre', 5, 50),
+(40, 'Crostini salmón', 'Entrante', 5, 12);
 
 --
 -- Índices para tablas volcadas
@@ -287,7 +304,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `camareros`
 --
 ALTER TABLE `camareros`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `lineas_carrito`
@@ -299,19 +316,19 @@ ALTER TABLE `lineas_carrito`
 -- AUTO_INCREMENT de la tabla `lineas_pedidos`
 --
 ALTER TABLE `lineas_pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- Restricciones para tablas volcadas

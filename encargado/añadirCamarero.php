@@ -8,10 +8,10 @@
     $foto = $_POST['dni'].'.jpg';
     $encargado = $_POST['encargado'];
 
-    $consulta = "INSERT INTO camareros VALUES ('NULL','$usuario','$contra','$dni','$foto','$encargado')";
+    $consulta = "INSERT INTO camareros VALUES ('NULL','$usuario','$contra','$dni','$foto','$encargado',1)";
 
     $resultado = mysqli_query($conn, $consulta);
 
-    header("LOCATION:menuEncargado.php");
+    header("LOCATION:2menuEncargado.php");
 
 ?>
