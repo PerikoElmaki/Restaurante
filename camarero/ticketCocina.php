@@ -52,6 +52,8 @@ $stmt->close();
 try {
     // AQUI ponemos ip de la impresora (la que le demos) si es por internet
     // $connector1 = new NetworkPrintConnector("10.x.x.x", 9100);
+    
+    // Añadiríamos otros connector según la categoría o zona
 
     // sergunco conector para usb 
     $connector2 = new WindowsPrintConnector("USB001");
@@ -65,11 +67,7 @@ try {
     $printer->setTextSize(1, 1);
 
 
-// SOLUCION: que crearPedido redirija a ticketCocina, pasandole por get el id del pedido, y aqui hacemos consultas de lineas_pedido
-// Volver a reimprimir cocina: en listarPedido, boton que sea formulario por get con el id del pedido, y hacemos consulta
-  
-// cambiar esta mierda por el resultado de las consultas
-// CAMBIAR foreach productosSeleccionados o por la consulta
+
 
     // Encabezado del ticket
     $printer->feed(1);

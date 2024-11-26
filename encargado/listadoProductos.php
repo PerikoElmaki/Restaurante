@@ -55,64 +55,64 @@ include "../conexion.php";
             </div>
             <div class="container">
                 <div class="row">
-                    <table class="table table-stripped">
-                        <thead>
-                            <tr>
-                                <th class="text-start">Nombre</th>
-                                <th class="text-start">Categoría</th>
-                                <th class="text-start">Precio </th>
-                                <th class="text-start">Stock</th>
-                               
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <?php
+                    $categorias = ["bebidas", "Postre", "Entrante", "Ensalada", "Pasta", "Pizza"];
+                    foreach ($categorias as $categoria) {
+                        echo "<h4>" . ucfirst($categoria) . "</h4>";
+                        echo "<table class='table table-stripped'>";
 
-                            <?php
-                            $consulta = "SELECT * FROM productos";
+                        echo "<thead>
+                                <tr>
+                                    <th class='text-start'>Nombre</th>
+                                    <th class='text-start'>Precio</th>
+                                    <th class='text-start'>Stock</th>
+                                    <th class='text-start'>Modificar</th>
+                                </tr>
+                              </thead>
+                              <tbody>";
 
-                            $resultado = mysqli_query($conn, $consulta);
+                        $consulta = "SELECT * FROM productos WHERE categoria='$categoria'";
+                        $resultado = mysqli_query($conn, $consulta);
 
-                            while ($fila = mysqli_fetch_array($resultado)) {
-                                $id = $fila['id'];
-                                $nombre = $fila['nombre'];
-                                $categ = $fila['categoria'];
-                                $precio = $fila['precio'];
-                                $stock = $fila['stock'];
-
-                                // Ponemos clase a row según categoría
-                                $clase = "";
-                                switch ($categ) {
-                                    case 'bebidas':
-                                        $clase = "table-primary";
-                                        break;
-                                    case 'Postre':
-                                        $clase = "table-secondary";
-                                        break;
-                                    case 'Entrante':
-                                        $clase = "table-light";
-                                        break;
-                                    case 'Ensalada':
-                                        $clase = "table-success";
-                                        break;
-                                    case 'Pasta':
-                                        $clase = "table-danger";
-                                        break;
-                                    case 'Pizza':
-                                        $clase = "table-info";
-                                        break;
-                                }
-
-
-                                echo "<tr class='$clase col-12'>";
-                                echo "<td class='tdProductos'>$nombre</td>";
-                                echo "<td class='tdProductos'>$categ</td>";
-                                echo "<td class='tdProductos'>$precio $</td>";
-                                echo "<td class='tdProductos'>$stock U <a href='eliminarProducto.php?id=$id' class='ms-3 btn btn-danger'><i class='bi bi-trash'></i></a></td>";
-                                echo "</tr>";
+                        while ($fila = mysqli_fetch_array($resultado)) {
+                            $id = $fila['id'];
+                            $nombre = $fila['nombre'];
+                            $precio = $fila['precio'];
+                            $stock = $fila['stock'];
+                            $clase = "";
+                            switch ($categoria) {
+                                case 'bebidas':
+                                    $clase = "table-primary";
+                                    break;
+                                case 'Postre':
+                                    $clase = "table-secondary";
+                                    break;
+                                case 'Entrante':
+                                    $clase = "table-light";
+                                    break;
+                                case 'Ensalada':
+                                    $clase = "table-success";
+                                    break;
+                                case 'Pasta':
+                                    $clase = "table-danger";
+                                    break;
+                                case 'Pizza':
+                                    $clase = "table-info";
+                                    break;
                             }
-                            ?>
-                        </tbody>
-                    </table>
+
+                            echo "<tr  class='$clase'>";
+                            echo "<td class='tdProductos'>$nombre</td>";
+                            echo "<td class='tdProductos'>$precio $</td>";
+                            echo "<td class='tdProductos'>$stock U </td>";
+                            echo "<td class='tdProductos'><a href='añadirStock.php?id=$id' class='ms-3 btn btn-warning'><i class='bi bi-plus-square'></i></a><a href='eliminarProducto.php?id=$id' class='ms-3 btn btn-danger'><i class='bi bi-trash'></i></a></td>";
+                            echo "</tr>";
+                        }
+
+                        echo "</tbody></table>";
+                    }
+                    ?>
+                   
                 </div>
             </div>
 

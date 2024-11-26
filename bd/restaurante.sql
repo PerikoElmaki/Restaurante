@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor:  127.0.0.1:3306
--- Tiempo de generación: 22-11-2024 a las 17:08:41
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 26-11-2024 a las 17:11:56
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -15,14 +15,14 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de datos: `restaurante`
 --
-DROP DATABASE IF EXISTS restaurante;
-CREATE DATABASE IF NOT EXISTS `restaurante` DEFAULT CHARACTER SET utf8;
-USE `restaurante`;
+DROP DATABASE IF EXISTS restaurantePedro;
+CREATE DATABASE IF NOT EXISTS `restaurantePedro` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `restaurantePedro`;
 
 -- --------------------------------------------------------
 
@@ -36,18 +36,19 @@ CREATE TABLE `camareros` (
   `contraseña` varchar(50) NOT NULL,
   `dni` varchar(50) NOT NULL,
   `foto` varchar(50) NOT NULL,
-  `encargado` int(10) NOT NULL DEFAULT 0
+  `encargado` int(10) NOT NULL DEFAULT 0,
+  `suspendido` int(2) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `camareros`
 --
 
-INSERT INTO `camareros` (`id`, `nombre`, `contraseña`, `dni`, `foto`, `encargado`) VALUES
-(1, 'admin', 'admin', '11111111E', '11111111E.jpg', 1),
-(2, 'maricon', 'gay', '2222222G', '2222222G.jpg', 0),
-(3, 'Rosa Melano', 'rosa', '33333333A', 'rosa.jpg', 0),
-(6, 'Pedro', 'redy', '48748246E', '48748246E.jpg', 0);
+INSERT INTO `camareros` (`id`, `nombre`, `contraseña`, `dni`, `foto`, `encargado`, `suspendido`) VALUES
+(1, 'admin', 'admin', '11111111E', '11111111E.jpg', 1, 0),
+(3, 'Rosa Melano', 'rosa', '33333333A', 'rosa.jpg', 0, 1),
+(6, 'Pedro', 'redy', '48748246E', '48748246E.jpg', 0, 0),
+(8, 'Fernando', 'maker', '46789823F', '46789823F.jpg', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -79,50 +80,20 @@ CREATE TABLE `lineas_pedidos` (
 --
 
 INSERT INTO `lineas_pedidos` (`id`, `pedido`, `producto`, `cant`, `comentario`) VALUES
-(3, 2, 20, 1, ''),
-(4, 2, 23, 1, ''),
-(5, 2, 24, 1, ''),
-(6, 3, 20, 1, ''),
-(7, 3, 24, 1, ''),
-(8, 4, 1, 1, ''),
-(9, 4, 6, 1, ''),
-(10, 4, 7, 1, ''),
-(11, 4, 9, 1, ''),
-(12, 4, 10, 1, ''),
-(13, 4, 11, 1, ''),
-(14, 4, 12, 1, ''),
-(15, 4, 19, 1, ''),
-(16, 4, 20, 1, ''),
-(17, 4, 21, 1, ''),
-(18, 4, 24, 1, ''),
-(19, 4, 35, 1, ''),
-(20, 4, 36, 1, ''),
-(21, 5, 9, 1, ''),
-(22, 5, 10, 1, ''),
-(23, 5, 11, 4, ''),
-(24, 5, 15, 1, ''),
-(25, 5, 16, 3, ''),
-(26, 5, 17, 1, ''),
-(27, 5, 35, 4, ''),
-(28, 5, 38, 1, ''),
-(29, 6, 27, 1, ''),
-(30, 6, 28, 3, ''),
-(31, 6, 30, 1, ''),
-(32, 6, 31, 2, ''),
-(33, 7, 20, 1, ''),
-(34, 7, 21, 2, ''),
-(35, 7, 23, 2, ''),
-(36, 7, 24, 2, ''),
-(37, 7, 25, 1, ''),
-(38, 8, 20, 1, ''),
-(39, 8, 23, 1, ''),
-(40, 8, 24, 1, ''),
-(41, 9, 2, 2, 'si hielo'),
-(42, 9, 7, 1, ''),
-(43, 9, 10, 1, ''),
-(44, 9, 24, 2, ''),
-(45, 9, 27, 1, ''),
-(46, 9, 31, 1, '');
+(1, 1, 19, 1, ''),
+(5, 3, 15, 1, ''),
+(6, 3, 16, 1, ''),
+(7, 4, 15, 1, ''),
+(8, 4, 16, 1, ''),
+(9, 5, 9, 1, ''),
+(10, 5, 13, 1, ''),
+(11, 6, 9, 1, ''),
+(12, 6, 13, 1, ''),
+(13, 6, 40, 1, ''),
+(16, 7, 15, 1, ''),
+(17, 7, 16, 1, ''),
+(18, 1, 19, 1, ''),
+(19, 1, 20, 1, '');
 
 -- --------------------------------------------------------
 
@@ -140,13 +111,13 @@ CREATE TABLE `mesas` (
 --
 
 INSERT INTO `mesas` (`codigo`, `estado`) VALUES
-('1', 1),
+('1', 0),
 ('2', 0),
 ('3', 0),
-('4', 1),
+('4', 0),
 ('5', 0),
-('6', 1),
-('7', 1),
+('6', 0),
+('7', 0),
 ('8', 0),
 ('9', 0);
 
@@ -162,22 +133,22 @@ CREATE TABLE `pedidos` (
   `total` float NOT NULL,
   `pagado` int(11) NOT NULL,
   `fecha` date NOT NULL,
-  `hora` time NOT NULL
+  `hora` time NOT NULL,
+  `eliminado` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `pedidos`
 --
 
-INSERT INTO `pedidos` (`id`, `mesa`, `total`, `pagado`, `fecha`, `hora`) VALUES
-(2, '5', 35.5, 0, '2024-11-22', '16:56:02'),
-(3, '6', 26.5, 0, '2024-11-22', '16:57:19'),
-(4, '1', 102.9, 0, '2024-11-22', '17:06:08'),
-(5, NULL, 120.9, 1, '2024-11-22', '17:06:19'),
-(6, NULL, 119, 1, '2024-11-22', '17:06:28'),
-(7, '6', 94.5, 0, '2024-11-22', '17:06:36'),
-(8, '7', 35.5, 0, '2024-11-22', '17:06:42'),
-(9, '4', 71.7, 0, '2024-11-22', '17:07:17');
+INSERT INTO `pedidos` (`id`, `mesa`, `total`, `pagado`, `fecha`, `hora`, `eliminado`) VALUES
+(1, '1', 36, 0, '2024-11-26', '16:26:24', 1),
+(2, '2', 30.2, 0, '2024-11-26', '16:26:41', 1),
+(3, '1', 17.5, 0, '2024-11-26', '16:29:14', 0),
+(4, '2', 17.5, 0, '2024-11-26', '16:29:48', 0),
+(5, '3', 30.2, 0, '2024-11-26', '16:30:39', 1),
+(6, '2', 35.2, 0, '2024-11-26', '16:39:38', 0),
+(7, '1', 17.5, 0, '2024-11-26', '16:50:28', 0);
 
 -- --------------------------------------------------------
 
@@ -199,43 +170,44 @@ CREATE TABLE `productos` (
 
 INSERT INTO `productos` (`id`, `nombre`, `categoria`, `precio`, `stock`) VALUES
 (1, 'Acqua Naturale', 'bebidas', 1.5, 100),
-(2, 'Acqua frizzante', 'bebidas', 1.5, 100),
+(2, 'Acqua frizzante', 'bebidas', 1.5, 0),
 (3, 'Coca Cola', 'bebidas', 2, 100),
 (4, 'Fanta Arancia', 'bebidas', 2, 100),
 (5, 'Moretti bottiglia', 'bebidas', 2.5, 100),
 (6, 'Piccola birra', 'bebidas', 1.5, 100),
-(7, 'Bicchiere di Vino Rosso', 'bebidas', 3.5, 50),
-(8, 'Bicchiere di Vino Bianco', 'bebidas', 3.5, 50),
-(9, 'Speck', 'Entrante', 10.2, 50),
-(10, 'Tagliere di formaggi', 'Entrante', 14.2, 50),
-(11, 'Focaccia', 'Entrante', 7, 50),
-(12, 'Provolone', 'Entrante', 8.5, 50),
-(13, 'Affettati misti', 'Entrante', 20, 50),
-(14, 'Pane all aglio', 'Entrante', 3.5, 50),
-(15, 'Insalata César', 'Ensalada', 9.5, 50),
-(16, 'Insalata Caprese', 'Ensalada', 8, 50),
-(17, 'Insalata di burrata', 'Ensalada', 12, 50),
-(18, 'Insalata di Rucola', 'Ensalada', 7, 50),
-(19, 'Spaghetti Carbonara', 'Pasta', 9.5, 50),
-(20, 'Lasagna', 'Pasta', 17, 50),
-(21, 'Rigatoni', 'Pasta', 12, 50),
-(22, 'Tagliatelle Puttanesca', 'Pasta', 14, 50),
-(23, 'Ravioli agli Spinaci', 'Pasta', 9, 50),
-(24, 'Fettuccine Alfredo', 'Pasta', 9.5, 50),
-(25, 'Paccheri pistacchio', 'Pasta', 16.5, 50),
-(26, 'Margherita', 'Pizza', 8, 50),
-(27, 'Pepperoni', 'Pizza', 12, 50),
-(28, 'Zucca speck', 'Pizza', 17.5, 50),
-(29, 'P. Al tartufo', 'Pizza', 14.5, 50),
-(30, 'Quattro Formaggi', 'Pizza', 14.5, 50),
-(31, 'Carbonara', 'Pizza', 20, 50),
-(32, 'Vegetariana', 'Pizza', 10.5, 50),
-(33, 'Funghi Porcini', 'Pizza', 17.5, 50),
-(34, 'Tiramisù', 'Postre', 5, 50),
-(35, 'Panna Cotta', 'Postre', 4.5, 50),
-(36, 'Gelato', 'Postre', 4, 50),
-(37, 'Cannoli', 'Postre', 4.5, 50),
-(38, 'Torta al Limone', 'Postre', 5, 50);
+(7, 'Vino Rosso', 'bebidas', 3.5, 50),
+(8, ' Vino Bianco', 'bebidas', 3.5, 0),
+(9, 'Speck', 'Entrante', 10.2, 100),
+(10, 'Tagliere formaggi', 'Entrante', 14.2, 100),
+(11, 'Focaccia', 'Entrante', 7, 100),
+(12, 'Provolone', 'Entrante', 8.5, 100),
+(13, 'Affettati misti', 'Entrante', 20, 100),
+(14, 'Pane all aglio', 'Entrante', 3.5, 100),
+(15, 'Insalata César', 'Ensalada', 9.5, 100),
+(16, 'Insalata Caprese', 'Ensalada', 8, 100),
+(17, 'Insalata di burrata', 'Ensalada', 12, 100),
+(18, 'Insalata di Rucola', 'Ensalada', 7, 100),
+(19, 'Spaghetti Carbonara', 'Pasta', 9.5, 100),
+(20, 'Lasagna', 'Pasta', 17, 100),
+(21, 'Rigatoni', 'Pasta', 12, 100),
+(22, 'Tagliatelle Puttanesca', 'Pasta', 14, 100),
+(23, 'Ravioli agli Spinaci', 'Pasta', 9, 100),
+(24, 'Fettuccine Alfredo', 'Pasta', 9.5, 100),
+(25, 'Paccheri pistacchio', 'Pasta', 16.5, 100),
+(26, 'Margherita', 'Pizza', 8, 100),
+(27, 'Pepperoni', 'Pizza', 12, 100),
+(28, 'Zucca speck', 'Pizza', 17.5, 100),
+(29, 'P. Al tartufo', 'Pizza', 14.5, 100),
+(30, 'Quattro Formaggi', 'Pizza', 14.5, 100),
+(31, 'Carbonara', 'Pizza', 20, 100),
+(32, 'Vegetariana', 'Pizza', 10.5, 100),
+(33, 'Funghi Porcini', 'Pizza', 17.5, 100),
+(34, 'Tiramisù', 'Postre', 5, 100),
+(35, 'Panna Cotta', 'Postre', 4.5, 100),
+(36, 'Gelato', 'Postre', 4, 100),
+(37, 'Cannoli', 'Postre', 4.5, 100),
+(38, 'Torta al Limone', 'Postre', 5, 100),
+(40, 'Crostini salmón', 'Entrante', 5, 100);
 
 --
 -- Índices para tablas volcadas
@@ -288,7 +260,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `camareros`
 --
 ALTER TABLE `camareros`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `lineas_carrito`
@@ -300,19 +272,19 @@ ALTER TABLE `lineas_carrito`
 -- AUTO_INCREMENT de la tabla `lineas_pedidos`
 --
 ALTER TABLE `lineas_pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- Restricciones para tablas volcadas

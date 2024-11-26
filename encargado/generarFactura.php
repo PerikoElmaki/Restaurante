@@ -16,13 +16,14 @@ if (isset($_POST['fecha'])) {
 
     // COnsulta del total de todos los productos del dia
     $totalProductosVendidos = 0;
-    $consultaLineas = "SELECT SUM(cant) as totalCantidad FROM lineas_pedidos WHERE pedido IN (SELECT id FROM pedidos WHERE fecha = '$fecha')";
+    
+    $consultaLineas = "SELECT SUM(cant) as totalCantidad FROM lineas_pedidos WHERE pedido IN (SELECT id FROM pedidos WHERE fecha = '$fecha' AND eliminado = 0)";
     $resultadoLineas = mysqli_query($conn, $consultaLineas);
     $filaLineas = mysqli_fetch_array($resultadoLineas);
     $totalProductosVendidos = $filaLineas['totalCantidad'];
 
     // Consulta del producto más vendido del día
-    $consultaProductoMasVendido = "SELECT producto, SUM(cant) as totalCantidad FROM lineas_pedidos WHERE pedido IN (SELECT id FROM pedidos WHERE fecha = '$fecha') GROUP BY producto ORDER BY totalCantidad DESC LIMIT 1";
+    $consultaProductoMasVendido = "SELECT producto, SUM(cant) as totalCantidad FROM lineas_pedidos WHERE pedido IN (SELECT id FROM pedidos WHERE fecha = '$fecha' AND eliminado = 0) GROUP BY producto ORDER BY totalCantidad DESC LIMIT 1";
     $resultadoProductoMasVendido = mysqli_query($conn, $consultaProductoMasVendido);
     $filaProductoMasVendido = mysqli_fetch_array($resultadoProductoMasVendido);
     $productoMasVendidoId = $filaProductoMasVendido['producto'];
@@ -63,21 +64,52 @@ if (isset($_POST['fecha'])) {
         $id = $fila['id'];
         $total= $fila['total'];
         $hora = $fila['hora'];
+        $eliminado = $fila['eliminado'];
 
-        
-        $pdf->Cell(40, 10,'   '. $id, 1);
-        $pdf->Cell(60, 10,'   ' . $hora , 1);
-        $pdf->Cell(40, 10,'   ' . $total . ' EUR', 1);
-       
-       
-        $pdf->Ln();
+        if($eliminado == 0){
+            $pdf->Cell(40, 10, '   ' . $id, 1);
+            $pdf->Cell(60, 10, '   ' . $hora, 1);
+            $pdf->Cell(40, 10, '   ' . $total . ' EUR', 1);
+            $pdf->Ln();
+        }
+      
+    }
+
+    // Encabezados de la tabla para pedidos eliminados
+    $pdf->Ln(10);
+    $pdf->SetFont('Arial', 'B', 12);
+    $pdf->Cell(0, 10, 'Pedidos Eliminados', 0, 1, 'C');
+    $pdf->SetX(($pdf->GetPageWidth() - 140) / 2);
+    $pdf->Cell(40, 10, '    Pedido ID', 1);
+    $pdf->Cell(60, 10, '    Hora', 1);
+    $pdf->Cell(40, 10, '    Total', 1);
+    $pdf->Ln();
+
+    // Procesar cada fila de pedidos eliminados
+    mysqli_data_seek($resultado, 0); // Reiniciar el puntero del resultado
+    while ($fila = mysqli_fetch_array($resultado)) {
+        $pdf->SetX(($pdf->GetPageWidth() - 140) / 2);
+        $id = $fila['id'];
+        $total = $fila['total'];
+        $hora = $fila['hora'];
+        $eliminado = $fila['eliminado'];
+
+        if ($eliminado == 1) {
+            $pdf->Cell(40, 10, '   ' . $id, 1);
+            $pdf->Cell(60, 10, '   ' . $hora, 1);
+            $pdf->Cell(40, 10, '   ' . $total . ' EUR', 1);
+            $pdf->Ln();
+        }
     }
 
     // Calcular el total de ingresos del día
     $totalIngresos = 0;
     mysqli_data_seek($resultado, 0); // Reiniciar el puntero del resultado
     while ($fila = mysqli_fetch_array($resultado)) {
-        $totalIngresos += $fila['total'];
+        if($fila['eliminado']==0){
+
+            $totalIngresos += $fila['total'];
+        }
     }
 
     // Calcular la media de total de cuentas
