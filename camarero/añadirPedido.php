@@ -36,7 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             foreach ($productosSeleccionados as $idProducto) {
                 $cantidad = $cantidades[$idProducto];
                 $comentario = $comentarios[$idProducto];
-                $sqlLineaPedido = "INSERT INTO lineas_pedidos (pedido, producto, cant, comentario) VALUES ('$pedidoId', '$idProducto', '$cantidad', '$comentario')";
+                
+                $sqlLineaPedido = "INSERT INTO lineas_pedidos (pedido, producto, cant, comentario)
+                 VALUES ('$pedidoId', '$idProducto', '$cantidad', '$comentario')";
                 if (!$conn->query($sqlLineaPedido)) {
                     echo "Error: " . $sqlLineaPedido . "<br>" . $conn->error;
                 }

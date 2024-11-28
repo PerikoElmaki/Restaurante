@@ -86,7 +86,7 @@ include "../conexion.php";
                         } else {
                             echo "<td class='tdPedidos'><a href='modificarCamarero.php?id=$id&susp=$suspendido' class='btn btn-warning'><i class='bi bi-toggle-off'></i></a>";
                         }
-                        echo "<a href='eliminarCamarero.php?id=$id' class='ms-1 btn btn-danger'><i class='bi bi-trash'></i></a></td>";
+                        // echo "<a href='eliminarCamarero.php?id=$id' class='ms-1 btn btn-danger'><i class='bi bi-trash'></i></a></td>";
                         echo "</tr>";
                     }
                     ?>
